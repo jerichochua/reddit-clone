@@ -1,0 +1,16 @@
+.home {
+  display: flex;
+  padding: 0 10vw;
+}
+
+@media (max-width: 1024px) {
+  .home {
+    padding: 0 5vw;
+  }
+}
+
+@media (max-width: 768px) {
+  .home {
+    padding: 0;
+  }
+}

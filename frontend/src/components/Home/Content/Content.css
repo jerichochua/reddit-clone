@@ -1,0 +1,93 @@
+.content {
+  flex: 1;
+}
+
+.content ul {
+  list-style: none;
+  border: 1px solid rgb(235, 237, 240);
+  border-radius: 2px;
+}
+
+.content li:not(:first-child) {
+  border-top: 1px solid rgb(235, 237, 240);
+}
+
+.post-container {
+  display: flex;
+}
+
+.post-item {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  border-left: 1px solid rgb(235, 237, 240);
+  padding: 8px;
+}
+
+.votes {
+  display: flex;
+  flex-direction: column;
+  padding: 4px;
+  font-size: 12px;
+  font-weight: 500;
+  color: rgb(69, 79, 91);
+  align-items: center;
+  line-height: 25px;
+  width: 30px;
+}
+
+.upvote-btn {
+  height: 22px;
+  width: 22px;
+  border: 0px none;
+  background-color: transparent;
+}
+
+.upvote-btn::after {
+  border: solid #b6b6b6;
+  border-width: 2px 2px 0 0;
+  width: 8px;
+  height: 8px;
+  display: block;
+  position: relative;
+  left: 6px;
+  top: 3px;
+  content: '';
+  transform: rotate(-45deg);
+}
+
+.downvote-btn {
+  height: 22px;
+  width: 22px;
+  border: 0px none;
+  background-color: transparent;
+}
+
+.downvote-btn::after {
+  border: solid #b6b6b6;
+  border-width: 0 0 2px 2px;
+  width: 8px;
+  height: 8px;
+  display: block;
+  position: relative;
+  left: 6px;
+  top: -2px;
+  content: '';
+  transform: rotate(-45deg);
+}
+
+.title {
+  font-weight: 500;
+  flex-grow: 1;
+}
+
+.caption {
+  font-size: 13px;
+  color: rgb(129, 142, 153);
+  flex-grow: 1;
+}
+
+.links {
+  font-size: 13px;
+  flex-grow: 1;
+}
