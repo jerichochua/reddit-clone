@@ -1,3 +1,47 @@
 .side {
+  display: flex;
+  flex-direction: column;
+  flex-basis: 240px;
   margin-left: 24px;
+  border: 1px solid rgb(235, 237, 240);
+  border-radius: 2px;
+}
+
+@media (max-width: 768px) {
+  .side {
+    display: none;
+  }
+}
+
+.create-post-btn {
+  background-color: #cee3f8;
+  border: none;
+  border-radius: 2px 2px 0 0;
+  padding: 16px;
+  cursor: pointer;
+}
+
+.cat-list {
+  display: flex;
+  flex-direction: column;
+}
+
+.cat-header {
+  font-size: 12px;
+  text-transform: uppercase;
+  font-weight: 700;
+  text-align: center;
+  letter-spacing: 0.05em;
+  color: #818e99;
+  padding: 12px;
+}
+
+.cat-item {
+  transition: color 0.1s ease 0s;
+  padding: 12px;
+  font-size: 15px;
+}
+
+.cat-item:hover {
+  color: #1890ff;
 }

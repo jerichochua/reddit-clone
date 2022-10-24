@@ -1,10 +1,11 @@
 import React from 'react';
+import Categories from './Categories';
 import './Side.css';
 
 export default function Side(props) {
   return (
     <div className='side'>
-      <p>side component</p>
+      <Categories />
     </div>
   );
 }

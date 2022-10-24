@@ -1,12 +1,12 @@
 import React from 'react';
-import Post from './Post';
+import Posts from './Posts';
 import './Content.css';
 
 export default function Content(props) {
   return (
     <div className='content'>
       <ul>
-        <Post
+        <Posts
           title='Sample Title'
           author='Sample Author'
           timestamp='Time'
