@@ -8,6 +8,12 @@
   },
   "author": "",
   "license": "ISC",
+  "prettier": {
+    "tabWidth": 2,
+    "singleQuote": true,
+    "semi": true,
+    "useTabs": false
+  },
   "dependencies": {
     "express": "^4.18.2"
   }
