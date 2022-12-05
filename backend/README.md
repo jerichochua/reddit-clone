@@ -6,9 +6,10 @@ This folder contains the backend/server code.
 - PostgreSQL 15
 
 ## Dependencies
+- cors
+- dotenv
 - Express
 - pg
-- dotenv
 
 ## Dev dependencies
 - nodemon
