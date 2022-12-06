@@ -1,5 +1,4 @@
 import React from 'react';
-import DarkModeButton from './DarkModeButton';
 import HeaderLink from './HeaderLink';
 import Logo from './Logo';
 import './Header.css';
