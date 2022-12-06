@@ -9,8 +9,8 @@ export default function Header(props) {
     <div className='header'>
       <Logo />
       <DarkModeButton />
-      <HeaderLink text='log in' />
-      <HeaderLink text='sign up' />
+      <HeaderLink text='log in' to='login' />
+      <HeaderLink text='sign up' to='signup' />
     </div>
   );
 }
