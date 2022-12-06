@@ -4,3 +4,4 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 
 ## Dependencies
 - Day.js
+- React Router

@@ -34,12 +34,16 @@ cd frontend
 npm run start
 ```
 
+Your browser will open `http://localhost:3000/` automatically.
+
 5. To start the server:
 
 ```bash
 cd backend
 npm run start
 ```
+
+Use `http://localhost:3001/` to make API calls.
 
 ## Environment variables
 
