@@ -68,7 +68,18 @@ app.get('/api/v1/posts/:id', (req, res) => {
 
 app.get('/api/v1/posts/:id/comments', (req, res) => {
   const id = req.params.id;
-  query = `SELECT * FROM comments WHERE post_id = $1`;
+  // get comments for post with id and author username
+  query = `
+    SELECT
+      comments.id,
+      comments.post_id,
+      users.username AS author,
+      comments.created_at,
+      comments.content
+    FROM comments
+    INNER JOIN users ON comments.author_id = users.id
+    WHERE comments.post_id = $1
+  `;
   client.query(query, [id], (err, result) => {
     if (err) {
       res.status(500).send('Error retrieving comments');
