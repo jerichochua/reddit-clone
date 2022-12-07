@@ -1,19 +1,42 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
+import dayjs from 'dayjs';
+import relativeTime from 'dayjs/plugin/relativeTime';
+import { get } from '../../../util/api';
 import Posts from './Posts';
 import './Content.css';
 
-export default function Content(props) {
+dayjs.extend(relativeTime);
+
+const Content = (props) => {
+  const [posts, setPosts] = useState([]);
+
+  useEffect(() => {
+    const fetchPosts = async () => {
+      const response = await get('posts');
+      setPosts(response);
+    };
+    fetchPosts();
+  }, []);
+
+  const postsList = posts.map((post) => {
+    return (
+      <Posts
+        key={post.id}
+        postid={post.id}
+        title={post.title}
+        author={post.author}
+        timestamp={dayjs(post.created_at).fromNow()}
+        votes={post.score}
+        comments={parseInt(post.comments)}
+      />
+    );
+  });
+
   return (
     <div className='content'>
-      <ul>
-        <Posts
-          title='Sample Title'
-          author='Sample Author'
-          timestamp='Time'
-          votes='100'
-          comments='100'
-        />
-      </ul>
+      {posts.length === 0 ? <p>No posts to show</p> : <ul>{postsList}</ul>}
     </div>
   );
-}
+};
+
+export default Content;
