@@ -31,7 +31,7 @@ app.get('/api/v1/posts', (req, res) => {
     INNER JOIN users ON posts.author_id = users.id
     LEFT JOIN comments ON posts.id = comments.post_id
     GROUP BY posts.id, users.username
-    ORDER BY posts.created_at DESC
+    ORDER BY score DESC
   `;
   client.query(query, (err, result) => {
     if (err) {
