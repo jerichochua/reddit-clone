@@ -78,7 +78,6 @@
 
 .title {
   font-weight: 500;
-  flex-grow: 1;
   transition: color 0.1s ease 0s;
   text-decoration: none;
   color: black;
@@ -96,7 +95,6 @@
 
 .links {
   font-size: 13px;
-  flex-grow: 1;
   transition: color 0.1s ease 0s;
   text-decoration: none;
   color: black;
