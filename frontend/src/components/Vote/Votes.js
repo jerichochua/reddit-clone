@@ -1,11 +1,14 @@
 import React from 'react';
+import './Vote.css';
 
-export default function Votes(props) {
+const Votes = (props) => {
   return (
-    <div className='votes'>
+    <div className='votes-container'>
       <button className='upvote-btn'></button>
       <span>{props.votes}</span>
       <button className='downvote-btn'></button>
     </div>
   );
-}
+};
+
+export default Votes;

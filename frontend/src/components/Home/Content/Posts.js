@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import Votes from './Votes';
+import Votes from '../../Vote/Votes';
 
 export default function Posts(props) {
   return (
