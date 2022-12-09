@@ -4,8 +4,13 @@ import { Form, FormField, FormTextArea, FormButton } from '../Form';
 const CreatePost = () => {
   return (
     <Form wide>
-      <FormField label='title' type='text' placeholder='title' />
-      <FormTextArea label='content' placeholder='content' />
+      <FormField
+        label='title'
+        type='text'
+        placeholder='title'
+        required={true}
+      />
+      <FormTextArea label='content' placeholder='content' required={true} />
       <FormButton label='create post' type='submit' />
     </Form>
   );
