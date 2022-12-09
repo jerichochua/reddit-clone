@@ -4,8 +4,8 @@ import './Home.css';
 
 export default function Home(props) {
   return (
-    <div className='home'>
+    <main className='home'>
       <Content />
-    </div>
+    </main>
   );
 }

@@ -25,11 +25,11 @@ const Post = () => {
   }, [id]);
 
   return (
-    <div className='post'>
+    <main className='post'>
       <PostDetails post={post} />
       <CommentForm />
       <CommentsList comments={comments} />
-    </div>
+    </main>
   );
 };
 
