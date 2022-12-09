@@ -31,7 +31,7 @@ npm install
 
 ```bash
 cd frontend
-npm run start
+npm start
 ```
 
 Your browser will open `http://localhost:3000/` automatically.
@@ -40,7 +40,7 @@ Your browser will open `http://localhost:3000/` automatically.
 
 ```bash
 cd backend
-npm run start
+npm start
 ```
 
 Use `http://localhost:3001/` to make API calls.
