@@ -1,7 +1,6 @@
 .form-container {
   margin: 0 auto;
   padding: 24px;
-  max-width: 375px;
   border: 1px solid rgb(235, 237, 240);
 }
 
@@ -28,6 +27,13 @@
   display: block;
   width: 100%;
   padding: 8px;
+}
+
+.form-field textarea {
+  width: 100%;
+  padding: 8px;
+  font-size: 14px;
+  resize: vertical;
 }
 
 .form-btn {

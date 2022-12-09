@@ -1,23 +1,13 @@
 import React from 'react';
-import '../Form/Form.css';
+import { Form, FormField, FormButton } from '../Form';
 
-const LoginForm = (props) => {
+const LoginForm = () => {
   return (
-    <div className='form-container'>
-      <form className='form'>
-        <div className='form-field'>
-          <label>username</label>
-          <input type='text' placeholder='username' />
-        </div>
-        <div className='form-field'>
-          <label>password</label>
-          <input type='password' placeholder='password' />
-        </div>
-        <button className='form-btn' type='submit'>
-          log in
-        </button>
-      </form>
-    </div>
+    <Form>
+      <FormField label='username' type='text' placeholder='username' />
+      <FormField label='password' type='password' placeholder='password' />
+      <FormButton label='log in' type='submit' />
+    </Form>
   );
 };
 
