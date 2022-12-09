@@ -14,7 +14,13 @@
   height: 22px;
   width: 22px;
   border: 0px none;
+  border-radius: 4px;
   background-color: transparent;
+  cursor: pointer;
+}
+
+.upvote-btn:hover {
+  background-color: rgb(242, 242, 242);
 }
 
 .upvote-btn::after {
@@ -34,7 +40,13 @@
   height: 22px;
   width: 22px;
   border: 0px none;
+  border-radius: 4px;
   background-color: transparent;
+  cursor: pointer;
+}
+
+.downvote-btn:hover {
+  background-color: rgb(242, 242, 242);
 }
 
 .downvote-btn::after {
