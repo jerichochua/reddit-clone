@@ -5,12 +5,14 @@ const LoginForm = () => {
   return (
     <Form>
       <FormField
+        name='username'
         label='username'
         type='text'
         placeholder='username'
         required={true}
       />
       <FormField
+        name='password'
         label='password'
         type='password'
         placeholder='password'

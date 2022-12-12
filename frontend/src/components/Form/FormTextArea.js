@@ -1,11 +1,12 @@
 import React, { useState } from 'react';
 
-const FormTextArea = ({ label, placeholder, required }) => {
+const FormTextArea = ({ name, label, placeholder, required }) => {
   const [value, setValue] = useState('');
   return (
     <div className='form-field'>
       <label>{label}</label>
       <textarea
+        name={name}
         placeholder={placeholder}
         rows='6'
         required={required}

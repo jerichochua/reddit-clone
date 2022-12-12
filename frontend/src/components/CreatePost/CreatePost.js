@@ -10,7 +10,12 @@ const CreatePost = () => {
         placeholder='title'
         required={true}
       />
-      <FormTextArea label='content' placeholder='content' required={true} />
+      <FormTextArea
+        name='content'
+        label='content'
+        placeholder='content'
+        required={true}
+      />
       <FormButton label='create post' type='submit' />
     </Form>
   );
