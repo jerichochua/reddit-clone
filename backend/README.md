@@ -9,6 +9,7 @@ This folder contains the backend/server code.
 - cors
 - dotenv
 - Express
+- morgan
 - pg
 
 ## Dev dependencies
