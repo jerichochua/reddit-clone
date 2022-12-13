@@ -36,6 +36,14 @@
   resize: vertical;
 }
 
+.form-error {
+  margin-bottom: 12px;
+  color: red;
+  font-size: 12px;
+  font-weight: 600;
+  text-transform: uppercase;
+}
+
 .form-btn {
   padding: 8px 24px;
   font-size: 12px;

@@ -1,11 +1,12 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import jwt_decode from 'jwt-decode';
-import { Form, FormField, FormButton } from '../Form';
+import { Error, Form, FormField, FormButton } from '../Form';
 import { post } from '../../util/api';
 import { useAppContext } from '../../contexts/AppProvider';
 
 const LoginForm = () => {
   const { state, dispatch } = useAppContext();
+  const [error, setError] = useState('');
 
   const onSubmitForm = async (e) => {
     e.preventDefault();
@@ -16,16 +17,18 @@ const LoginForm = () => {
 
     try {
       const response = await post('login', body);
+      console.log(response);
       if (response.token) {
         localStorage.setItem('token', response.token);
         const userId = jwt_decode(response.token).id;
+        setError('');
         dispatch({ type: 'SET_USER', payload: userId });
         dispatch({ type: 'SET_TOKEN', payload: response.token });
       } else {
         console.error(response);
       }
     } catch (error) {
-      console.error(error.message);
+      setError(error.message);
       return;
     }
   };
@@ -52,6 +55,7 @@ const LoginForm = () => {
         placeholder='password'
         required={true}
       />
+      {error && <Error message={error} />}
       <FormButton label='log in' type='submit' />
     </Form>
   );
