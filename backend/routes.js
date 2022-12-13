@@ -2,6 +2,7 @@ const client = require('./db/db');
 const router = require('express').Router();
 const bcrypt = require('bcrypt');
 const generate_token = require('./auth/generate_token');
+const verify_token = require('./auth/verify_token');
 
 router.post('/login', async (req, res) => {
   try {
@@ -93,6 +94,22 @@ router.get('/posts/:id', (req, res) => {
   });
 });
 
+router.post('/posts/:id', verify_token, async (req, res) => {
+  const author_id = req.user;
+  const post_id = req.params.id;
+  const { content } = req.body;
+  query = `
+    INSERT INTO comments (post_id, author_id, content)
+    VALUES ($1, $2, $3)
+  `;
+  client.query(query, [post_id, author_id, content], (err, result) => {
+    if (err) {
+      res.status(500).send('Error creating comment');
+    }
+    res.status(201).json({ message: 'Comment created' });
+  });
+});
+
 router.get('/posts/:id/comments', (req, res) => {
   const id = req.params.id;
   query = `
@@ -105,6 +122,7 @@ router.get('/posts/:id/comments', (req, res) => {
     FROM comments
     INNER JOIN users ON comments.author_id = users.id
     WHERE comments.post_id = $1
+    ORDER BY comments.created_at DESC
   `;
   client.query(query, [id], (err, result) => {
     if (err) {
