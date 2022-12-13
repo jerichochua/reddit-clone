@@ -16,11 +16,12 @@ export const get = async (endpoint) => {
   return data;
 };
 
-export const post = async (endpoint, body) => {
+export const post = async (endpoint, body, token = null) => {
   const options = {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
+      ...(token && { Authorization: `Bearer ${token}` }),
     },
     body: JSON.stringify(body),
   };
