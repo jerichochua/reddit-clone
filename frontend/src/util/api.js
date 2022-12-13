@@ -8,10 +8,11 @@ export const get = async (endpoint) => {
     },
   };
   const response = await fetch(`${baseUrl}/${endpoint}`, options);
-  const data = await response.json();
   if (!response.ok) {
-    throw new Error(data.message);
+    const error = await response.text();
+    throw new Error(error);
   }
+  const data = await response.json();
   return data;
 };
 
@@ -24,9 +25,10 @@ export const post = async (endpoint, body) => {
     body: JSON.stringify(body),
   };
   const response = await fetch(`${baseUrl}/${endpoint}`, options);
-  const data = await response.json();
   if (!response.ok) {
-    throw new Error(data.message);
+    const error = await response.text();
+    throw new Error(error);
   }
+  const data = await response.json();
   return data;
 };
