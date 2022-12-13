@@ -16,7 +16,7 @@ router.post('/login', async (req, res) => {
     if (!validPassword) {
       return res.status(400).send('Username or password is incorrect');
     }
-    const token = generate_token(user.rows[0].id);
+    const token = generate_token(username);
     return res.json({ token });
   } catch (error) {
     res.status(500).send('Server error');
@@ -35,10 +35,10 @@ router.post('/register', async (req, res) => {
     const salt = await bcrypt.genSalt(10);
     const hash = await bcrypt.hash(password, salt);
     const newUser = await client.query(
-      'INSERT INTO users (username, password) VALUES ($1, $2) RETURNING *',
+      'INSERT INTO users (username, password) VALUES ($1, $2)',
       [username, hash]
     );
-    const token = generate_token(newUser.rows[0].id);
+    const token = generate_token(username);
     return res.json({ token });
   } catch (error) {
     res.status(500).send('Server error');
