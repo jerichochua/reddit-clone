@@ -48,8 +48,8 @@ const SignupForm = () => {
       const response = await post('register', body);
       if (response.token) {
         localStorage.setItem('token', response.token);
-        const userId = jwt_decode(response.token).id;
-        dispatch({ type: 'SET_USER', payload: userId });
+        const { userId, username } = jwt_decode(response.token);
+        dispatch({ type: 'SET_USER', payload: { userId, username }});
         dispatch({ type: 'SET_TOKEN', payload: response.token });
         window.location.href = '/';
       } else {

@@ -7,7 +7,7 @@ import './Header.css';
 
 const Header = () => {
   const { state, dispatch } = useAppContext();
-  const user = state.user;
+  const username = state.username;
 
   const logout = () => {
     localStorage.removeItem('token');
@@ -17,9 +17,9 @@ const Header = () => {
   return (
     <div className='header'>
       <Logo />
-      {user ? (
+      {username ? (
         <>
-          <Username username={user} />
+          <Username username={username} />
           <HeaderLink text='create post' to='createpost' />
           <span className='header-item header-link' onClick={logout}>
             logout

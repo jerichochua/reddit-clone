@@ -17,12 +17,11 @@ const LoginForm = () => {
 
     try {
       const response = await post('login', body);
-      console.log(response);
       if (response.token) {
         localStorage.setItem('token', response.token);
-        const userId = jwt_decode(response.token).id;
+        const { userId, username } = jwt_decode(response.token);
         setError('');
-        dispatch({ type: 'SET_USER', payload: userId });
+        dispatch({ type: 'SET_USER', payload: { userId, username } });
         dispatch({ type: 'SET_TOKEN', payload: response.token });
       } else {
         console.error(response);

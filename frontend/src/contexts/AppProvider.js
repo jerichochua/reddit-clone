@@ -5,21 +5,27 @@ const AppContext = createContext();
 AppContext.displayName = 'AppContext';
 
 const token = localStorage.getItem('token');
-const user = token ? jwt_decode(token).username : null;
+const userId = token ? jwt_decode(token).id : null;
+const username = token ? jwt_decode(token).username : null;
 
 const initialState = {
-  user,
+  userId,
+  username,
   token,
 };
 
 const reducer = (state, action) => {
   switch (action.type) {
     case 'SET_USER':
-      return { ...state, user: action.payload };
+      return {
+        ...state,
+        userId: action.payload.userId,
+        username: action.payload.username,
+      };
     case 'SET_TOKEN':
       return { ...state, token: action.payload };
     case 'LOGOUT':
-      return { ...state, user: null, token: null };
+      return { ...state, userId: null, username: null, token: null };
     default:
       return state;
   }
