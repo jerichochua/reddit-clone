@@ -1,7 +1,16 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Form, FormField, FormTextArea, FormButton } from '../Form';
+import { useAppContext } from '../../contexts/AppProvider';
 
 const CreatePost = () => {
+  const { state } = useAppContext();
+
+  useEffect(() => {
+    if (!state.user) {
+      window.location.href = '/login';
+    }
+  }, [state.user]);
+
   return (
     <Form wide>
       <FormField
