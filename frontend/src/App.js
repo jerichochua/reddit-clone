@@ -1,5 +1,6 @@
 import React from 'react';
 import { Routes, Route } from 'react-router-dom';
+import { AppProvider } from './contexts/AppProvider';
 import CreatePost from './components/CreatePost/CreatePost';
 import ErrorPage from './ErrorPage';
 import Header from './components/Header/Header';
@@ -10,7 +11,7 @@ import SignupForm from './components/Signup/SignupForm';
 
 function App() {
   return (
-    <>
+    <AppProvider>
       <Header />
       <Routes>
         <Route path='/' element={<Home />} />
@@ -20,7 +21,7 @@ function App() {
         <Route path='/posts/:id' element={<Post />} />
         <Route path='*' element={<ErrorPage />} />
       </Routes>
-    </>
+    </AppProvider>
   );
 }
 
