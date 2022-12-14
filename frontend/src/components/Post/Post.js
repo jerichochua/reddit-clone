@@ -11,26 +11,20 @@ const Post = () => {
   const { state } = useAppContext();
   const { id } = useParams();
   const [post, setPost] = useState({});
-  const [comments, setComments] = useState([]);
 
   useEffect(() => {
     const fetchPost = async () => {
       const response = await get(`posts/${id}`);
       setPost(response);
     };
-    const fetchComments = async () => {
-      const response = await get(`posts/${id}/comments`);
-      setComments(response);
-    };
     fetchPost();
-    fetchComments();
   }, [id]);
 
   return (
     <main className='post'>
       <PostDetails post={post} />
       {state.token && <CommentForm postId={id} />}
-      <CommentsList comments={comments} />
+      <CommentsList postId={id} />
     </main>
   );
 };
