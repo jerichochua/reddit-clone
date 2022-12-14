@@ -32,4 +32,17 @@
 .comment-body {
   padding: 12px;
   font-size: 15px;
+  white-space: pre-line;
+}
+
+.comment-form-footer {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.comment-footer-message {
+  align-self: center;
+  margin-right: 12px;
+  color: rgb(129, 142, 153);
+  font-size: 13px;
 }
