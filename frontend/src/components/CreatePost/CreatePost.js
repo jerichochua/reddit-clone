@@ -6,14 +6,15 @@ const CreatePost = () => {
   const { state } = useAppContext();
 
   useEffect(() => {
-    if (!state.user) {
+    if (!state.token) {
       window.location.href = '/login';
     }
-  }, [state.user]);
+  }, [state.token]);
 
   return (
     <Form wide>
       <FormField
+        name='title'
         label='title'
         type='text'
         placeholder='title'
