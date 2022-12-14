@@ -69,6 +69,21 @@ router.get('/posts', (req, res) => {
   });
 });
 
+router.post('/posts', verify_token, async (req, res) => {
+  const author_id = req.user;
+  const { title, content } = req.body;
+  query = `INSERT INTO posts (author_id, title, content, post_type)
+    VALUES ($1, $2, $3, 'text')
+    RETURNING *
+  `;
+  client.query(query, [author_id, title, content], (err, result) => {
+    if (err) {
+      res.status(500).send('Error creating post');
+    }
+    res.status(201).send(result.rows[0]);
+  });
+});
+
 router.get('/posts/:id', (req, res) => {
   const id = req.params.id;
   query = `
