@@ -1,22 +1,30 @@
 import React, { useEffect, useState } from 'react';
+import { useParams } from 'react-router-dom';
 import dayjs from 'dayjs';
 import relativeTime from 'dayjs/plugin/relativeTime';
+import Empty from '../../Empty/Empty';
 import { get } from '../../../util/api';
 import Posts from './Posts';
 import './Content.css';
 
 dayjs.extend(relativeTime);
 
-const Content = (props) => {
+const Content = ({ isUserPage }) => {
   const [posts, setPosts] = useState([]);
+  const { username } = useParams();
 
   useEffect(() => {
     const fetchPosts = async () => {
-      const response = await get('posts');
-      setPosts(response);
+      if (isUserPage) {
+        const response = await get(`users/${username}`);
+        setPosts(response);
+      } else {
+        const response = await get('posts');
+        setPosts(response);
+      }
     };
     fetchPosts();
-  }, []);
+  }, [username, isUserPage]);
 
   const postsList = posts.map((post) => {
     return (
@@ -34,7 +42,11 @@ const Content = (props) => {
 
   return (
     <div className='content'>
-      {posts.length === 0 ? <p>No posts to show</p> : <ul>{postsList}</ul>}
+      {posts.length === 0 ? (
+        <Empty message='No posts to show' />
+      ) : (
+        <ul>{postsList}</ul>
+      )}
     </div>
   );
 };

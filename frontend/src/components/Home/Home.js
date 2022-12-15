@@ -2,10 +2,12 @@ import React from 'react';
 import Content from './Content/Content';
 import './Home.css';
 
-export default function Home(props) {
+const Home = ({ isUserPage }) => {
   return (
     <main className='home'>
-      <Content />
+      <Content isUserPage={isUserPage} />
     </main>
   );
-}
+};
+
+export default Home;
