@@ -68,6 +68,21 @@ router.get('/:id', (req, res) => {
   });
 });
 
+router.delete('/:id', verify_token, async (req, res) => {
+  const id = req.params.id;
+  const author_id = req.user;
+  query = `DELETE FROM posts WHERE id = $1 AND author_id = $2`;
+  try {
+    const result = await pool.query(query, [id, author_id]);
+    if (result.rowCount === 0) {
+      return res.status(404).send('Post not found');
+    }
+    res.status(204).send();
+  } catch (err) {
+    res.status(500).send(`Error deleting post: ${err.detail}`);
+  }
+});
+
 router.post('/:id', verify_token, async (req, res) => {
   const author_id = req.user;
   const post_id = req.params.id;
