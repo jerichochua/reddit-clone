@@ -30,3 +30,22 @@ export const validatePassword = (password) => {
   }
   return errors;
 };
+
+export const validateTitle = (title) => {
+  const errors = [];
+  if (title.length < 3) {
+    errors.push('Title must have at least 3 characters');
+  }
+  if (title.length > 128) {
+    errors.push('Title must have at most 128 characters');
+  }
+  return errors;
+};
+
+export const validateContent = (content) => {
+  const errors = [];
+  if (content.length < 3) {
+    errors.push('Content must have at least 3 characters');
+  }
+  return errors;
+};
