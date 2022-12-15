@@ -24,14 +24,14 @@
   padding: 8px;
 }
 
-.title {
+.title a {
   font-weight: 500;
   transition: color 0.1s ease 0s;
   text-decoration: none;
   color: black;
 }
 
-.title:hover {
+.title a:hover {
   color: #1890ff;
 }
 
@@ -39,6 +39,17 @@
   font-size: 13px;
   color: rgb(129, 142, 153);
   flex-grow: 1;
+}
+
+.caption a {
+  color: black;
+  text-decoration: none;
+  transition: color 0.1s ease 0s;
+  font-weight: 500;
+}
+
+.caption a:hover {
+  color: #1890ff;
 }
 
 .links {

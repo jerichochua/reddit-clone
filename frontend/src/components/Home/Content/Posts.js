@@ -8,14 +8,16 @@ export default function Posts(props) {
       <div className='post-container'>
         <Votes votes={props.votes} />
         <div className='post-item'>
-          <div>
-            <Link className='title' to={`/posts/${props.postid}`}>
+          <div className='title'>
+            <Link to={`/posts/${props.postid}`}>
               {props.title}
             </Link>
           </div>
-          <p className='caption'>
-            by {props.author} {props.timestamp}
-          </p>
+          <div className='caption'>
+            <span>by </span>
+            <Link to={`/user/${props.author}`}>{props.author}</Link>
+            <span> {props.timestamp}</span>
+          </div>
           <div>
             <Link className='links' to={`/posts/${props.postid}`}>
               {props.comments} comment{props.comments === 1 ? '' : 's'}
