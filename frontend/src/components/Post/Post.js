@@ -4,6 +4,7 @@ import { get } from '../../util/api';
 import { useAppContext } from '../../contexts/AppProvider';
 import CommentForm from './CommentForm';
 import CommentsList from './CommentsList';
+import Empty from '../Empty/Empty';
 import PostDetails from './PostDetails';
 import './Post.css';
 
@@ -11,20 +12,31 @@ const Post = () => {
   const { state } = useAppContext();
   const { id } = useParams();
   const [post, setPost] = useState({});
+  const [error, setError] = useState(false);
 
   useEffect(() => {
     const fetchPost = async () => {
-      const response = await get(`posts/${id}`);
-      setPost(response);
+      try {
+        const response = await get(`posts/${id}`);
+        setPost(response);
+      } catch (error) {
+        setError(true);
+      }
     };
     fetchPost();
   }, [id]);
 
   return (
     <main className='post'>
-      <PostDetails post={post} />
-      {state.token && <CommentForm postId={id} />}
-      <CommentsList postId={id} />
+      {error ? (
+        <Empty message='Post not found' />
+      ) : (
+        <>
+          <PostDetails post={post} />
+          {state.token && <CommentForm postId={id} />}
+          <CommentsList postId={id} />
+        </>
+      )}
     </main>
   );
 };
