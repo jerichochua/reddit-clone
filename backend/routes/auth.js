@@ -1,4 +1,4 @@
-const client = require('../db/db');
+const pool = require('../db/db');
 const bcrypt = require('bcrypt');
 const generate_token = require('../auth/generate_token');
 const router = require('express').Router();
@@ -6,7 +6,7 @@ const router = require('express').Router();
 router.post('/login', async (req, res) => {
   try {
     const { username, password } = req.body;
-    const user = await client.query('SELECT * FROM users WHERE username = $1', [
+    const user = await pool.query('SELECT * FROM users WHERE username = $1', [
       username,
     ]);
     if (user.rows.length === 0) {
@@ -26,7 +26,7 @@ router.post('/login', async (req, res) => {
 router.post('/register', async (req, res) => {
   try {
     const { username, password } = req.body;
-    const user = await client.query('SELECT * FROM users WHERE username = $1', [
+    const user = await pool.query('SELECT * FROM users WHERE username = $1', [
       username,
     ]);
     if (user.rows.length > 0) {
@@ -34,7 +34,7 @@ router.post('/register', async (req, res) => {
     }
     const salt = await bcrypt.genSalt(10);
     const hash = await bcrypt.hash(password, salt);
-    const newUser = await client.query(
+    const newUser = await pool.query(
       'INSERT INTO users (username, password) VALUES ($1, $2) RETURNING *',
       [username, hash]
     );

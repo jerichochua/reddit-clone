@@ -1,4 +1,4 @@
-const client = require('../db/db');
+const pool = require('../db/db');
 const router = require('express').Router();
 const verify_token = require('../middleware/verify_token');
 
@@ -17,7 +17,7 @@ router.get('/', (req, res) => {
     GROUP BY posts.id, users.username
     ORDER BY score DESC
   `;
-  client.query(query, (err, result) => {
+  pool.query(query, (err, result) => {
     if (err) {
       res.status(500).send('Error retrieving posts');
     }
@@ -32,7 +32,7 @@ router.post('/', verify_token, async (req, res) => {
     VALUES ($1, $2, $3, 'text')
     RETURNING *
   `;
-  client.query(query, [author_id, title, content], (err, result) => {
+  pool.query(query, [author_id, title, content], (err, result) => {
     if (err) {
       res.status(500).send('Error creating post');
     }
@@ -57,7 +57,7 @@ router.get('/:id', (req, res) => {
     WHERE posts.id = $1
     GROUP BY posts.id, users.username
   `;
-  client.query(query, [id], (err, result) => {
+  pool.query(query, [id], (err, result) => {
     if (err) {
       res.status(500).send('Error retrieving post');
     }
@@ -76,7 +76,7 @@ router.post('/:id', verify_token, async (req, res) => {
     INSERT INTO comments (post_id, author_id, content)
     VALUES ($1, $2, $3)
   `;
-  client.query(query, [post_id, author_id, content], (err, result) => {
+  pool.query(query, [post_id, author_id, content], (err, result) => {
     if (err) {
       res.status(500).send('Error creating comment');
     }
@@ -98,7 +98,7 @@ router.get('/:id/comments', (req, res) => {
     WHERE comments.post_id = $1
     ORDER BY comments.created_at DESC
   `;
-  client.query(query, [id], (err, result) => {
+  pool.query(query, [id], (err, result) => {
     if (err) {
       res.status(500).send('Error retrieving comments');
     }

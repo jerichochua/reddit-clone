@@ -1,4 +1,4 @@
-const client = require('../db/db');
+const pool = require('../db/db');
 const router = require('express').Router();
 
 router.get('/:username', (req, res) => {
@@ -18,7 +18,7 @@ router.get('/:username', (req, res) => {
     GROUP BY posts.id, users.username
     ORDER BY score DESC
   `;
-  client.query(query, [username], (err, result) => {
+  pool.query(query, [username], (err, result) => {
     if (err) {
       res.status(500).send('Error retrieving posts');
     }
