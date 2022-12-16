@@ -25,10 +25,7 @@
   padding: 0 16px;
 }
 
-.header-item-username {
-  display: flex;
-  align-items: center;
-  padding: 0 16px;
+.header-item.username {
   border-left: 1px solid #5f99cf;
   border-right: 1px solid #5f99cf;
 }
