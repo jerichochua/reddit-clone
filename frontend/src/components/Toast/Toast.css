@@ -1,0 +1,48 @@
+/* hidden by default */
+.toast-container {
+  position: fixed;
+  bottom: 0;
+  right: 0;
+  width: 100%;
+  padding: 24px;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+  display: none;
+}
+
+.toast-container.show {
+  display: flex;
+}
+
+.toast-text {
+  background-color: white;
+  color: black;
+  padding: 16px;
+  border-radius: 2px;
+  box-shadow: 0 6px 10px 0 rgba(0, 0, 0, 0.14),
+  0 1px 18px 0 rgba(0, 0, 0, 0.12), 0 3px 5px -1px rgba(0, 0, 0, 0.2);
+}
+
+.toast-text.info {
+  border-left: 4px solid #2196f3;
+}
+
+.toast-text.warning {
+  border-left: 4px solid #ff9800;
+}
+
+.toast-text.error {
+  border-left: 4px solid red;
+}
+
+@media (max-width: 425px) {
+  .toast-container {
+    padding: 16px;
+  }
+
+  .toast-text {
+    padding: 12px;
+    font-size: 14px;
+  }
+}
