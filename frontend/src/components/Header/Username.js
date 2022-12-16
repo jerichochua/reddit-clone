@@ -3,11 +3,9 @@ import { Link } from 'react-router-dom';
 
 const Username = ({ username }) => {
   return (
-    <div className='header-item username'>
-      <Link className='header-link' to={`/user/${username}`}>
-        {username}
-      </Link>
-    </div>
+    <Link className='header-item header-link username' to={`/user/${username}`}>
+      {username}
+    </Link>
   );
 };
 
