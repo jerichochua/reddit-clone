@@ -121,4 +121,23 @@ router.get('/:id/comments', async (req, res) => {
   }
 });
 
+router.delete('/:id/comments/:comment_id', verify_token, async (req, res) => {
+  const post_id = req.params.id;
+  const comment_id = req.params.comment_id;
+  const author_id = req.user;
+  query = `
+    DELETE FROM comments
+    WHERE id = $1 AND post_id = $2 AND author_id = $3
+  `;
+  try {
+    const result = await pool.query(query, [comment_id, post_id, author_id]);
+    if (result.rowCount === 0) {
+      return res.status(404).send('Comment not found');
+    }
+    res.status(204).send();
+  } catch (err) {
+    res.status(500).send('Error deleting comment');
+  }
+});
+
 module.exports = router;
