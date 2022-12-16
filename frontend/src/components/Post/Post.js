@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
-import { get } from '../../util/api';
+import { get, delete_request } from '../../util/api';
 import { useAppContext } from '../../contexts/AppProvider';
 import CommentForm from './CommentForm';
 import CommentsList from './CommentsList';
 import Empty from '../Empty/Empty';
+import Toast from '../Toast/Toast';
 import PostDetails from './PostDetails';
 import './Post.css';
 
@@ -13,13 +14,32 @@ const Post = () => {
   const { id } = useParams();
   const [post, setPost] = useState({});
   const [error, setError] = useState(false);
+  const [deleteSuccess, setDeleteSuccess] = useState(false);
+  const [deleteError, setDeleteError] = useState(false);
+  const [message, setMessage] = useState('');
+
+  const onDeletePost = async () => {
+    try {
+      await delete_request(`posts/${id}`, state.token);
+      setDeleteError(false);
+      setDeleteSuccess(true);
+      setMessage('Post deleted successfully. Redirecting to home page...');
+      setTimeout(() => {
+        window.location.href = '/';
+      }, 2000);
+    } catch (err) {
+      setDeleteError(true);
+      setDeleteSuccess(false);
+      setMessage('Unable to delete post');
+    }
+  };
 
   useEffect(() => {
     const fetchPost = async () => {
       try {
         const response = await get(`posts/${id}`);
         setPost(response);
-      } catch (error) {
+      } catch (err) {
         setError(true);
       }
     };
@@ -32,9 +52,15 @@ const Post = () => {
         <Empty message='Post not found' />
       ) : (
         <>
-          <PostDetails post={post} />
+          <PostDetails post={post} onDelete={onDeletePost} />
           {state.token && <CommentForm postId={id} />}
           <CommentsList postId={id} />
+          {deleteError && (
+            <Toast type='error' message={message} show={deleteError} />
+          )}
+          {deleteSuccess && (
+            <Toast type='info' message={message} show={deleteSuccess} />
+          )}
         </>
       )}
     </main>

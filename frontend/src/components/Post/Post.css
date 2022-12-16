@@ -47,6 +47,18 @@
 }
 
 .post-details {
+  display: flex;
   font-size: 13px;
   color: rgb(129, 142, 153);
+}
+
+.delete-button {
+  margin-left: auto;
+  font-size: 13px;
+  font-weight: 700;
+  text-transform: uppercase;
+  background-color: transparent;
+  color: red;
+  border: none;
+  cursor: pointer;
 }

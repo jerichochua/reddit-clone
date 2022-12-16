@@ -1,11 +1,16 @@
 import React from 'react';
 import dayjs from 'dayjs';
 import relativeTime from 'dayjs/plugin/relativeTime';
+import { useAppContext } from '../../contexts/AppProvider';
 import Votes from '../Vote/Votes';
 
 dayjs.extend(relativeTime);
 
 const PostDetails = (props) => {
+  const { state } = useAppContext();
+
+  const isAuthor = state.username === props.post.author;
+
   return (
     <div className='post-details-container'>
       <Votes votes={props.post.score} />
@@ -22,6 +27,11 @@ const PostDetails = (props) => {
             {parseInt(props.post.comments) === 1 ? '' : 's'} by{' '}
             {props.post.author} {dayjs(props.post.created_at).fromNow()}
           </p>
+          {isAuthor && (
+            <button className='delete-button' onClick={props.onDelete}>
+              Delete
+            </button>
+          )}
         </div>
       </div>
     </div>
