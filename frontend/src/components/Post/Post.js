@@ -54,7 +54,13 @@ const Post = () => {
         <>
           <PostDetails post={post} onDelete={onDeletePost} />
           {state.token && <CommentForm postId={id} />}
-          <CommentsList postId={id} />
+          <CommentsList
+            state={state}
+            postId={id}
+            setMessage={setMessage}
+            setDeleteError={setDeleteError}
+            setDeleteSuccess={setDeleteSuccess}
+          />
           {deleteError && (
             <Toast type='error' message={message} show={deleteError} />
           )}
