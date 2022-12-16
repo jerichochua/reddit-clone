@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import jwt_decode from 'jwt-decode';
-import { Error, Form, FormField, FormButton } from '../Form';
+import { Form, FormField, FormButton } from '../Form';
+import Toast from '../Toast/Toast';
 import { post } from '../../util/api';
 import { useAppContext } from '../../contexts/AppProvider';
 
@@ -39,24 +40,26 @@ const LoginForm = () => {
   }, [state.token]);
 
   return (
-    <Form onSubmit={onSubmitForm}>
-      <FormField
-        name='username'
-        label='username'
-        type='text'
-        placeholder='username'
-        required={true}
-      />
-      <FormField
-        name='password'
-        label='password'
-        type='password'
-        placeholder='password'
-        required={true}
-      />
-      {error && <Error message={error} />}
-      <FormButton label='log in' type='submit' />
-    </Form>
+    <>
+      <Form onSubmit={onSubmitForm}>
+        <FormField
+          name='username'
+          label='username'
+          type='text'
+          placeholder='username'
+          required={true}
+        />
+        <FormField
+          name='password'
+          label='password'
+          type='password'
+          placeholder='password'
+          required={true}
+        />
+        <FormButton label='log in' type='submit' />
+      </Form>
+      <Toast type='error' message={error} show={error} />
+    </>
   );
 };
 
