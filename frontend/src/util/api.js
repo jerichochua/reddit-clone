@@ -33,3 +33,18 @@ export const post = async (endpoint, body, token = null) => {
   const data = await response.json();
   return data;
 };
+
+export const delete_request = async (endpoint, token = null) => {
+  const options = {
+    method: 'DELETE',
+    headers: {
+      ...(token && { Authorization: `Bearer ${token}` }),
+    },
+  };
+  const response = await fetch(`${baseUrl}/${endpoint}`, options);
+  if (!response.ok) {
+    const error = await response.text();
+    throw new Error(error);
+  }
+  return;
+};
