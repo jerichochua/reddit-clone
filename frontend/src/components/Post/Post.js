@@ -16,6 +16,8 @@ const Post = () => {
   const [error, setError] = useState(false);
   const [deleteSuccess, setDeleteSuccess] = useState(false);
   const [deleteError, setDeleteError] = useState(false);
+  const [editSuccess, setEditSuccess] = useState(false);
+  const [editError, setEditError] = useState(false);
   const [message, setMessage] = useState('');
 
   const onDeletePost = async () => {
@@ -60,12 +62,20 @@ const Post = () => {
             setMessage={setMessage}
             setDeleteError={setDeleteError}
             setDeleteSuccess={setDeleteSuccess}
+            setEditError={setEditError}
+            setEditSuccess={setEditSuccess}
           />
           {deleteError && (
             <Toast type='error' message={message} show={deleteError} />
           )}
           {deleteSuccess && (
             <Toast type='info' message={message} show={deleteSuccess} />
+          )}
+          {editError && (
+            <Toast type='error' message={message} show={editError} />
+          )}
+          {editSuccess && (
+            <Toast type='info' message={message} show={editSuccess} />
           )}
         </>
       )}

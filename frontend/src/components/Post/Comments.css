@@ -25,6 +25,7 @@
 
 .comment-header-timestamp {
   margin-left: 4px;
+  margin-right: auto;
   color: rgb(129, 142, 153);
   font-size: 13px;
 }
@@ -46,3 +47,19 @@
   color: rgb(129, 142, 153);
   font-size: 13px;
 }
+
+.comment-edit-textarea {
+  width: 100%;
+  resize: none;
+  font-size: 15px;
+  font-family: inherit;
+  padding: 15px;
+  border: 1px solid rgb(0, 149, 246);
+  outline: none;
+}
+
+.comment-edit-footer {
+  display: flex;
+  justify-content: flex-end;
+}
+

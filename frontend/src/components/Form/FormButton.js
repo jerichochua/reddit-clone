@@ -1,8 +1,8 @@
 import React from 'react';
 
-const FormButton = ({ label, type }) => {
+const FormButton = ({ label, name, value, type }) => {
   return (
-    <button className='form-btn' type={type}>
+    <button className='form-btn' name={name} value={value} type={type}>
       {label}
     </button>
   );

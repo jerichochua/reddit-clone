@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { get, delete_request } from '../../util/api';
+import { get, put, delete_request } from '../../util/api';
 import Comment from './Comment';
 import './Comments.css';
 
@@ -9,6 +9,8 @@ const CommentsList = ({
   setMessage,
   setDeleteError,
   setDeleteSuccess,
+  setEditError,
+  setEditSuccess,
 }) => {
   const [comments, setComments] = useState([]);
 
@@ -32,6 +34,29 @@ const CommentsList = ({
     }
   };
 
+  const onEditComment = async (e) => {
+    e.preventDefault();
+    const commentId = e.target.commenteditbtn.value;
+    const comment = e.target.commentedit.value;
+    try {
+      await put(
+        `posts/${postId}/comments/${commentId}`,
+        { content: comment },
+        state.token
+      );
+      setEditError(false);
+      setEditSuccess(true);
+      setMessage('Comment edited successfully. Reloading comments...');
+      setTimeout(() => {
+        window.location.reload();
+      }, 2000);
+    } catch (err) {
+      setEditError(true);
+      setEditSuccess(false);
+      setMessage('Unable to edit comment');
+    }
+  };
+
   useEffect(() => {
     const fetchComments = async () => {
       const response = await get(`posts/${postId}/comments`);
@@ -46,6 +71,7 @@ const CommentsList = ({
       comment={comment}
       username={state.username}
       onDelete={onDeleteComment}
+      onEdit={onEditComment}
     />
   ));
 

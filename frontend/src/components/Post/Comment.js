@@ -1,10 +1,13 @@
-import React from 'react';
+import React, { useState } from 'react';
 import dayjs from 'dayjs';
 import relativeTime from 'dayjs/plugin/relativeTime';
+import { FormButton } from '../Form';
+import PostButton from './PostButton/PostButton';
 
 dayjs.extend(relativeTime);
 
-const Comment = ({ comment, username, onDelete }) => {
+const Comment = ({ comment, username, onDelete, onEdit }) => {
+  const [isEditing, setIsEditing] = useState(false);
   const isAuthor = username === comment.author;
 
   return (
@@ -16,17 +19,42 @@ const Comment = ({ comment, username, onDelete }) => {
             {dayjs(comment.created_at).fromNow()}
           </span>
           {isAuthor && (
-            <button
-              value={comment.id}
-              className='delete-button'
-              onClick={onDelete}
-            >
-              Delete
-            </button>
+            <>
+              <PostButton
+                label={isEditing ? 'Cancel' : 'Edit'}
+                type='secondary'
+                onClick={() => setIsEditing(!isEditing)}
+              />
+              <PostButton
+                label='Delete'
+                type='danger'
+                value={comment.id}
+                onClick={onDelete}
+              />
+            </>
           )}
         </div>
-        <div className='comment-body'>
-          <p>{comment.content}</p>
+        <div>
+          {isEditing ? (
+            <form onSubmit={onEdit}>
+              <textarea
+                name='commentedit'
+                className='comment-edit-textarea'
+                defaultValue={comment.content}
+                rows='2'
+              ></textarea>
+              <div className='comment-edit-footer'>
+                <FormButton
+                  name='commenteditbtn'
+                  label='Edit'
+                  value={comment.id}
+                  type='submit'
+                />
+              </div>
+            </form>
+          ) : (
+            <p className='comment-body'>{comment.content}</p>
+          )}
         </div>
       </div>
     </li>
