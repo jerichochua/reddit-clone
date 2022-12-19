@@ -121,6 +121,32 @@ router.get('/:id/comments', async (req, res) => {
   }
 });
 
+router.put('/:id/comments/:comment_id', verify_token, async (req, res) => {
+  const post_id = req.params.id;
+  const comment_id = req.params.comment_id;
+  const author_id = req.user;
+  const { content } = req.body;
+  query = `
+    UPDATE comments
+    SET content = $1
+    WHERE id = $2 AND post_id = $3 AND author_id = $4
+  `;
+  try {
+    const result = await pool.query(query, [
+      content,
+      comment_id,
+      post_id,
+      author_id,
+    ]);
+    if (result.rowCount === 0) {
+      return res.status(404).send('Comment not found');
+    }
+    res.status(204).send();
+  } catch (err) {
+    res.status(500).send('Error updating comment');
+  }
+});
+
 router.delete('/:id/comments/:comment_id', verify_token, async (req, res) => {
   const post_id = req.params.id;
   const comment_id = req.params.comment_id;
