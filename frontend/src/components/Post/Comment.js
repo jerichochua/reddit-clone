@@ -42,6 +42,7 @@ const Comment = ({ comment, username, onDelete, onEdit }) => {
                 className='comment-edit-textarea'
                 defaultValue={comment.content}
                 rows='2'
+                required
               ></textarea>
               <div className='comment-edit-footer'>
                 <FormButton
