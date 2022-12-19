@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { post } from '../../util/api';
+import { FormButton } from '../Form';
 import { useAppContext } from '../../contexts/AppProvider';
 import './CommentForm.css';
 
@@ -37,7 +38,7 @@ const CommentForm = ({ postId }) => {
         ></textarea>
         <div className='comment-form-footer'>
           {message && <span className='comment-footer-message'>{message}</span>}
-          <button className='comment-form-button'>Comment</button>
+          <FormButton label='Comment' type='submit' />
         </div>
       </form>
     </div>
