@@ -1,6 +1,7 @@
 import React from 'react';
 import dayjs from 'dayjs';
 import relativeTime from 'dayjs/plugin/relativeTime';
+import PostButton from './PostButton/PostButton';
 import { useAppContext } from '../../contexts/AppProvider';
 import Votes from '../Vote/Votes';
 
@@ -28,9 +29,7 @@ const PostDetails = (props) => {
             {props.post.author} {dayjs(props.post.created_at).fromNow()}
           </p>
           {isAuthor && (
-            <button className='delete-button' onClick={props.onDelete}>
-              Delete
-            </button>
+            <PostButton label='Delete' type='danger' onClick={props.onDelete} />
           )}
         </div>
       </div>

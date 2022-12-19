@@ -1,0 +1,21 @@
+.post-button {
+  margin-left: 8px;
+  font-size: 13px;
+  font-weight: 700;
+  text-transform: uppercase;
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+}
+
+.post-button.primary {
+  color: rgb(24, 144, 255);
+}
+
+.post-button.secondary {
+  color: darkgray;
+}
+
+.post-button.danger {
+  color: red;
+}
