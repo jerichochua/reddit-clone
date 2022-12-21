@@ -1,6 +1,25 @@
-const pool = require('../db/db');
+const { body, validationResult } = require('express-validator');
 const router = require('express').Router();
+const pool = require('../db/db');
 const verify_token = require('../middleware/verify_token');
+
+const validate_title = body('title')
+  .trim()
+  .exists()
+  .withMessage('Title is required')
+  .isLength({ min: 3 })
+  .withMessage('Title must have at least 3 characters')
+  .isLength({ max: 128 })
+  .withMessage('Title must have at most 128 characters');
+
+const validate_content = body('content')
+  .trim()
+  .exists()
+  .withMessage('Content is required')
+  .isLength({ min: 3 })
+  .withMessage('Content must have at least 3 characters');
+
+const validate_post = [validate_title, validate_content];
 
 router.get('/', async (req, res) => {
   query = `
@@ -25,7 +44,12 @@ router.get('/', async (req, res) => {
   }
 });
 
-router.post('/', verify_token, async (req, res) => {
+router.post('/', verify_token, validate_post, async (req, res) => {
+  const errors = validationResult(req);
+  if (!errors.isEmpty()) {
+    const error = errors.array()[0];
+    return res.status(400).send(error.msg);
+  }
   const author_id = req.user;
   const { title, content } = req.body;
   query = `INSERT INTO posts (author_id, title, content, post_type)
