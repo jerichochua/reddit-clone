@@ -4,6 +4,7 @@ import { Form, FormField, FormButton } from '../Form';
 import Toast from '../Toast/Toast';
 import { post } from '../../util/api';
 import { useAppContext } from '../../contexts/AppProvider';
+import { validateUsername, validatePassword } from '../../util/validators';
 
 const LoginForm = () => {
   const { state, dispatch } = useAppContext();
@@ -11,6 +12,19 @@ const LoginForm = () => {
 
   const onSubmitForm = async (e) => {
     e.preventDefault();
+
+    const usernameErrors = validateUsername(e.target.username.value);
+    const passwordErrors = validatePassword(e.target.password.value);
+
+    if (usernameErrors.length > 0) {
+      setError(usernameErrors[0]);
+      return;
+    }
+    if (passwordErrors.length > 0) {
+      setError(passwordErrors[0]);
+      return;
+    }
+
     const body = {
       username: e.target.username.value,
       password: e.target.password.value,
