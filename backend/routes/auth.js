@@ -1,9 +1,44 @@
-const pool = require('../db/db');
+const { body, validationResult } = require('express-validator');
 const bcrypt = require('bcrypt');
-const generate_token = require('../auth/generate_token');
 const router = require('express').Router();
+const generate_token = require('../auth/generate_token');
+const pool = require('../db/db');
 
-router.post('/login', async (req, res) => {
+const validate = () => {
+  const rules = [
+    body('username')
+      .exists()
+      .withMessage('Username is required')
+      .isLength({ min: 3 })
+      .withMessage('Username must be greater than 3 characters')
+      .isLength({ max: 32 })
+      .withMessage('Username must be less than 32 characters')
+      .matches(/^[a-zA-Z0-9_]+$/)
+      .withMessage('Username can only contain alphanumeric characters')
+      .trim()
+      .withMessage('Username cannot start or end with whitespaces'),
+    body('password')
+      .exists()
+      .withMessage('Password is required')
+      .isLength({ min: 8 })
+      .withMessage('Password must be greater than 8 characters')
+      .isLength({ max: 64 })
+      .withMessage('Password must be less than 64 characters')
+      .matches(/^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])/)
+      .withMessage(
+        'Password must contain at least one uppercase letter, one lowercase letter, and one number'
+      ),
+  ];
+  return rules;
+};
+
+router.post('/login', validate(), async (req, res) => {
+  const errors = validationResult(req);
+  if (!errors.isEmpty()) {
+    const firstError = errors.array()[0].msg;
+    return res.status(400).send(firstError);
+  }
+
   try {
     const { username, password } = req.body;
     const user = await pool.query('SELECT * FROM users WHERE username = $1', [
@@ -23,7 +58,13 @@ router.post('/login', async (req, res) => {
   }
 });
 
-router.post('/register', async (req, res) => {
+router.post('/register', validate(), async (req, res) => {
+  const errors = validationResult(req);
+  if (!errors.isEmpty()) {
+    const firstError = errors.array()[0].msg;
+    return res.status(400).send(firstError);
+  }
+
   try {
     const { username, password } = req.body;
     const user = await pool.query('SELECT * FROM users WHERE username = $1', [
