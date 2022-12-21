@@ -12,6 +12,7 @@ This folder contains the backend/server code.
 - cors
 - dotenv
 - express
+- express-validator
 - jsonwebtoken
 - morgan
 - pg
