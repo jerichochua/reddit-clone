@@ -1,10 +1,10 @@
 const baseUrl = 'http://localhost:3001/api/v1';
 
-export const get = async (endpoint) => {
+export const get = async (endpoint, token = null) => {
   const options = {
     method: 'GET',
     headers: {
-      'Content-Type': 'application/json',
+      ...(token && { Authorization: `Bearer ${token}` }),
     },
   };
   const response = await fetch(`${baseUrl}/${endpoint}`, options);
