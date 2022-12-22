@@ -15,12 +15,16 @@ const Content = ({ isUserPage }) => {
 
   useEffect(() => {
     const fetchPosts = async () => {
-      if (isUserPage) {
-        const response = await get(`users/${username}`);
-        setPosts(response);
-      } else {
-        const response = await get('posts');
-        setPosts(response);
+      try {
+        if (isUserPage) {
+          const response = await get(`users/${username}`);
+          setPosts(response);
+        } else {
+          const response = await get('posts');
+          setPosts(response);
+        }
+      } catch (err) {
+        setPosts([]);
       }
     };
     fetchPosts();
