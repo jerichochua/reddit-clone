@@ -5,7 +5,6 @@ CREATE TABLE posts (
   author_id INTEGER REFERENCES users(id),
   created_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP,
   post_type TEXT NOT NULL,
-  score INTEGER DEFAULT 0,
   content TEXT NOT NULL,
   post_url TEXT
 );

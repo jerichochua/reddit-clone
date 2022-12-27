@@ -31,17 +31,18 @@ const validate_comment = body('content')
 const validate_post = [validate_title, validate_content];
 
 router.get('/', async (req, res) => {
-  query = `
+  const query = `
     SELECT
       posts.id,
       posts.title,
       users.username AS author,
-      posts.score,
+      SUM(votes.vote) AS score,
       posts.created_at,
       COUNT(comments.id) AS comments
     FROM posts
     INNER JOIN users ON posts.author_id = users.id
     LEFT JOIN comments ON posts.id = comments.post_id
+    LEFT JOIN votes ON posts.id = votes.post_id
     GROUP BY posts.id, users.username
     ORDER BY score DESC
   `;
@@ -49,6 +50,7 @@ router.get('/', async (req, res) => {
     const result = await pool.query(query);
     res.status(200).send(result.rows);
   } catch (err) {
+    console.log(err);
     res.status(500).send('Error retrieving posts');
   }
 });
@@ -79,13 +81,14 @@ router.get('/:id', async (req, res) => {
       posts.id,
       posts.title,
       users.username AS author,
-      posts.score,
+      SUM(votes.vote) AS score,
       posts.created_at,
       posts.content,
       COUNT(comments.id) AS comments
     FROM posts
     INNER JOIN users ON posts.author_id = users.id
     LEFT JOIN comments ON posts.id = comments.post_id
+    LEFT JOIN votes ON posts.id = votes.post_id
     WHERE posts.id = $1
     GROUP BY posts.id, users.username
   `;
