@@ -1,0 +1,29 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`renders correctly 1`] = `
+<div
+  className="header"
+>
+  <a
+    className="header-logo"
+    href="/"
+    onClick={[Function]}
+  >
+    not-reddit
+  </a>
+  <a
+    className="header-item header-link"
+    href="/login"
+    onClick={[Function]}
+  >
+    log in
+  </a>
+  <a
+    className="header-item header-link"
+    href="/signup"
+    onClick={[Function]}
+  >
+    sign up
+  </a>
+</div>
+`;
