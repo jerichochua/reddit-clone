@@ -1,0 +1,69 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`renders correctly 1`] = `
+<div
+  className="form-container"
+  style={
+    Object {
+      "maxWidth": "375px",
+    }
+  }
+>
+  <form
+    className="form"
+    onSubmit={[Function]}
+  >
+    <div
+      className="form-field"
+    >
+      <label>
+        username
+      </label>
+      <input
+        name="username"
+        onChange={[Function]}
+        placeholder="username"
+        required={true}
+        type="text"
+        value=""
+      />
+    </div>
+    <div
+      className="form-field"
+    >
+      <label>
+        password
+      </label>
+      <input
+        name="password"
+        onChange={[Function]}
+        placeholder="password"
+        required={true}
+        type="password"
+        value=""
+      />
+    </div>
+    <div
+      className="form-field"
+    >
+      <label>
+        confirm password
+      </label>
+      <input
+        name="confirmPassword"
+        onChange={[Function]}
+        placeholder="confirm password"
+        required={true}
+        type="password"
+        value=""
+      />
+    </div>
+    <button
+      className="form-btn"
+      type="submit"
+    >
+      sign up
+    </button>
+  </form>
+</div>
+`;
