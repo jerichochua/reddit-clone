@@ -1,0 +1,30 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`renders correctly 1`] = `
+<div
+  className="comment-form-container"
+>
+  <form
+    className="comment-form"
+    onSubmit={[Function]}
+  >
+    <textarea
+      className="comment-form-textarea"
+      name="content"
+      placeholder="Add a comment..."
+      required={true}
+      rows="2"
+    />
+    <div
+      className="comment-form-footer"
+    >
+      <button
+        className="form-btn"
+        type="submit"
+      >
+        Comment
+      </button>
+    </div>
+  </form>
+</div>
+`;

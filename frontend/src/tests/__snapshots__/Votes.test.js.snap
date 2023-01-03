@@ -1,0 +1,31 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`renders correctly 1`] = `
+<div
+  className="votes-container"
+>
+  <button
+    className="upvote-btn"
+  />
+  <span />
+  <button
+    className="downvote-btn"
+  />
+</div>
+`;
+
+exports[`renders correctly with score 1`] = `
+<div
+  className="votes-container"
+>
+  <button
+    className="upvote-btn"
+  />
+  <span>
+    1
+  </span>
+  <button
+    className="downvote-btn"
+  />
+</div>
+`;
