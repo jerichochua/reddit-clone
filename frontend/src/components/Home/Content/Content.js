@@ -17,11 +17,11 @@ const Content = ({ isUserPage }) => {
     const fetchPosts = async () => {
       try {
         if (isUserPage) {
-          const response = await get(`users/${username}`);
-          setPosts(response);
+          const postsResponse = await get(`users/${username}`);
+          setPosts(postsResponse);
         } else {
-          const response = await get('posts');
-          setPosts(response);
+          const postsResponse = await get('posts');
+          setPosts(postsResponse);
         }
       } catch (err) {
         setPosts([]);
@@ -34,11 +34,11 @@ const Content = ({ isUserPage }) => {
     return (
       <Posts
         key={post.id}
-        postid={post.id}
+        postId={post.id}
         title={post.title}
         author={post.author}
         timestamp={dayjs(post.created_at).fromNow()}
-        votes={post.score}
+        score={post.score}
         comments={parseInt(post.comments)}
       />
     );
