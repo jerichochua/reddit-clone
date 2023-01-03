@@ -63,7 +63,7 @@ router.post('/', verify_token, validate_post, async (req, res) => {
   }
   const author_id = req.user;
   const { title, content } = req.body;
-  query = `INSERT INTO posts (author_id, title, content, post_type)
+  const query = `INSERT INTO posts (author_id, title, content, post_type)
     VALUES ($1, $2, $3, 'text') RETURNING *
   `;
   try {
@@ -76,7 +76,7 @@ router.post('/', verify_token, validate_post, async (req, res) => {
 
 router.get('/:id', async (req, res) => {
   const id = req.params.id;
-  query = `
+  const query = `
     SELECT
       posts.id,
       posts.title,
@@ -106,7 +106,7 @@ router.get('/:id', async (req, res) => {
 router.delete('/:id', verify_token, async (req, res) => {
   const id = req.params.id;
   const author_id = req.user;
-  query = `DELETE FROM posts WHERE id = $1 AND author_id = $2`;
+  const query = `DELETE FROM posts WHERE id = $1 AND author_id = $2`;
   try {
     const result = await pool.query(query, [id, author_id]);
     if (result.rowCount === 0) {
@@ -127,7 +127,7 @@ router.post('/:id', verify_token, validate_comment, async (req, res) => {
   const author_id = req.user;
   const post_id = req.params.id;
   const { content } = req.body;
-  query = `
+  const query = `
     INSERT INTO comments (post_id, author_id, content)
     VALUES ($1, $2, $3)
   `;
@@ -144,7 +144,7 @@ router.post('/:id', verify_token, validate_comment, async (req, res) => {
 
 router.get('/:id/comments', async (req, res) => {
   const id = req.params.id;
-  query = `
+  const query = `
     SELECT
       comments.id,
       comments.post_id,
@@ -176,7 +176,7 @@ router.put(
     const comment_id = req.params.comment_id;
     const author_id = req.user;
     const { content } = req.body;
-    query = `
+    const query = `
     UPDATE comments
     SET content = $1
     WHERE id = $2 AND post_id = $3 AND author_id = $4
@@ -202,7 +202,7 @@ router.delete('/:id/comments/:comment_id', verify_token, async (req, res) => {
   const post_id = req.params.id;
   const comment_id = req.params.comment_id;
   const author_id = req.user;
-  query = `
+  const query = `
     DELETE FROM comments
     WHERE id = $1 AND post_id = $2 AND author_id = $3
   `;
