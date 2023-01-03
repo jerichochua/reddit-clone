@@ -36,7 +36,7 @@ router.get('/', async (req, res) => {
       posts.id,
       posts.title,
       users.username AS author,
-      SUM(votes.vote) AS score,
+      COALESCE(SUM(votes.vote), 0) AS score,
       posts.created_at,
       COUNT(comments.id) AS comments
     FROM posts
@@ -50,7 +50,6 @@ router.get('/', async (req, res) => {
     const result = await pool.query(query);
     res.status(200).send(result.rows);
   } catch (err) {
-    console.log(err);
     res.status(500).send('Error retrieving posts');
   }
 });
