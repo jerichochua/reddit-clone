@@ -30,12 +30,12 @@ const Votes = ({ score }) => {
   return (
     <div className='votes-container'>
       <button
-        className={`upvote-btn ${isUpvoted ? 'voted' : ''}`}
+        className={`upvote-btn${isUpvoted ? ' voted' : ''}`}
         onClick={handleUpvote}
       ></button>
       <span>{score}</span>
       <button
-        className={`downvote-btn ${isDownvoted ? 'voted' : ''}`}
+        className={`downvote-btn${isDownvoted ? ' voted' : ''}`}
         onClick={handleDownvote}
       ></button>
     </div>

@@ -3,11 +3,11 @@ import { MemoryRouter } from 'react-router-dom';
 import Posts from '../components/Home/Content/Posts';
 
 const post = {
-  postid: '1',
+  postId: '1',
   title: 'title',
   author: 'author',
   timestamp: 'timestamp',
-  votes: 1,
+  score: 1,
   comments: 1,
 };
 

@@ -6,10 +6,12 @@ exports[`renders correctly 1`] = `
 >
   <button
     className="upvote-btn"
+    onClick={[Function]}
   />
   <span />
   <button
     className="downvote-btn"
+    onClick={[Function]}
   />
 </div>
 `;
@@ -20,12 +22,14 @@ exports[`renders correctly with score 1`] = `
 >
   <button
     className="upvote-btn"
+    onClick={[Function]}
   />
   <span>
     1
   </span>
   <button
     className="downvote-btn"
+    onClick={[Function]}
   />
 </div>
 `;
