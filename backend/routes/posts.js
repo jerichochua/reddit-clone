@@ -80,7 +80,7 @@ router.get('/:id', async (req, res) => {
       posts.id,
       posts.title,
       users.username AS author,
-      SUM(votes.vote) AS score,
+      COALESCE(SUM(votes.vote), 0) AS score,
       posts.created_at,
       posts.content,
       COUNT(comments.id) AS comments
