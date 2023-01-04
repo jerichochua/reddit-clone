@@ -14,7 +14,7 @@ const PostDetails = (props) => {
 
   return (
     <div className='post-details-container'>
-      <Votes votes={props.post.score} />
+      <Votes score={props.post.score} />
       <div className='post-content-container'>
         <div className='post-title'>
           <span>{props.post.title}</span>

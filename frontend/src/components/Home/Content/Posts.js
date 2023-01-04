@@ -6,7 +6,7 @@ const Posts = ({ postId, title, author, score, timestamp, comments }) => {
   return (
     <li>
       <div className='post-container'>
-        <Votes postId={postId} votes={score} />
+        <Votes score={score} />
         <div className='post-item'>
           <div className='title'>
             <Link to={`/posts/${postId}`}>{title}</Link>

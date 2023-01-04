@@ -54,7 +54,7 @@ const Post = () => {
         <Empty message='Post not found' />
       ) : (
         <>
-          <PostDetails post={post} onDelete={onDeletePost} />
+          <PostDetails postId={id} post={post} onDelete={onDeletePost} />
           {state.token && <CommentForm postId={id} />}
           <CommentsList
             state={state}

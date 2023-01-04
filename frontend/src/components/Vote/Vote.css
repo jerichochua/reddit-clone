@@ -36,6 +36,10 @@
   transform: rotate(-45deg);
 }
 
+.upvote-btn.voted::after {
+  border-color: #f9920b;
+}
+
 .downvote-btn {
   height: 22px;
   width: 22px;
@@ -60,4 +64,8 @@
   top: -2px;
   content: '';
   transform: rotate(-45deg);
+}
+
+.downvote-btn.voted::after {
+  border-color: #2e70ff;
 }
