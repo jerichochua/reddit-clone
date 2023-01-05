@@ -4,6 +4,18 @@
 
 Reddit clone built with the PERN stack (PostgreSQL, Express, React, Node.js).
 
+## Features
+
+- Login, signup (JWT)
+- Create, delete posts
+- Create, edit, delete comments
+- View own/other user's posts (profile page)
+- Backend API
+
+### Not yet implemented
+
+- Voting (endpoints created but not implemented on frontend yet)
+
 ## Set up
 
 1. Clone this repository, and enter the `reddit-clone` directory:
@@ -44,6 +56,15 @@ npm start
 ```
 
 Use `http://localhost:3001/` to make API calls.
+
+## Testing
+
+### Frontend
+
+```bash
+cd frontend
+npm test
+```
 
 ## Environment variables
 
