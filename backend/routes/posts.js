@@ -216,4 +216,77 @@ router.delete('/:id/comments/:comment_id', verify_token, async (req, res) => {
   }
 });
 
+router.get('/:id/votes', async (req, res) => {
+  const id = req.params.id;
+  const query = 'SELECT * FROM VOTES WHERE post_id = $1';
+  try {
+    const result = await pool.query(query, [id]);
+    if (result.rows.length === 0) {
+      return res.status(404).send('Post not found');
+    }
+    res.status(200).send(result.rows);
+  } catch (err) {
+    res.status(500).send('Error retrieving votes');
+  }
+});
+
+router.post('/:id/upvote', verify_token, async (req, res) => {
+  const post_id = req.params.id;
+  const user_id = req.user;
+  const query = `
+    INSERT INTO votes (post_id, user_id, vote)
+    VALUES ($1, $2, 1)
+    ON CONFLICT (post_id, user_id) DO UPDATE SET vote = 1
+    RETURNING *
+  `;
+  try {
+    const result = await pool.query(query, [post_id, user_id]);
+    if (result.rows.length === 0) {
+      return res.status(404).send('Post not found');
+    }
+    res.status(201).send(result.rows[0]);
+  } catch (err) {
+    res.status(500).send('Error upvoting post');
+  }
+});
+
+router.post('/:id/downvote', verify_token, async (req, res) => {
+  const post_id = req.params.id;
+  const user_id = req.user;
+  const query = `
+    INSERT INTO votes (post_id, user_id, vote)
+    VALUES ($1, $2, -1)
+    ON CONFLICT (post_id, user_id) DO UPDATE SET vote = -1
+    RETURNING *
+  `;
+  try {
+    const result = await pool.query(query, [post_id, user_id]);
+    if (result.rows.length === 0) {
+      return res.status(404).send('Post not found');
+    }
+    res.status(201).send(result.rows[0]);
+  } catch (err) {
+    res.status(500).send('Error downvoting post');
+  }
+});
+
+router.post('/:id/unvote', verify_token, async (req, res) => {
+  const post_id = req.params.id;
+  const user_id = req.user;
+  const query = `
+    DELETE FROM votes
+    WHERE post_id = $1 AND user_id = $2
+    RETURNING *
+  `;
+  try {
+    const result = await pool.query(query, [post_id, user_id]);
+    if (result.rows.length === 0) {
+      return res.status(404).send('Post not found');
+    }
+    res.status(201).send(result.rows[0]);
+  } catch (err) {
+    res.status(500).send('Error unvoting post');
+  }
+});
+
 module.exports = router;
