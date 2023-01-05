@@ -1,10 +1,7 @@
 import React, { useState } from 'react';
-import dayjs from 'dayjs';
-import relativeTime from 'dayjs/plugin/relativeTime';
 import { FormButton } from '../Form';
+import getRelativeTime from '../../util/getRelativeTime';
 import PostButton from './PostButton/PostButton';
-
-dayjs.extend(relativeTime);
 
 const Comment = ({ comment, username, onDelete, onEdit }) => {
   const [isEditing, setIsEditing] = useState(false);
@@ -16,7 +13,7 @@ const Comment = ({ comment, username, onDelete, onEdit }) => {
         <div className='comment-header'>
           <span className='comment-header-author'>{comment.author}</span>
           <span className='comment-header-timestamp'>
-            {dayjs(comment.created_at).fromNow()}
+            {getRelativeTime(comment.created_at)}
           </span>
           {isAuthor && (
             <>

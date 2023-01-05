@@ -1,13 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
-import dayjs from 'dayjs';
-import relativeTime from 'dayjs/plugin/relativeTime';
 import Empty from '../../Empty/Empty';
 import { get } from '../../../util/api';
+import getRelativeTime from '../../../util/getRelativeTime';
 import Posts from './Posts';
 import './Content.css';
-
-dayjs.extend(relativeTime);
 
 const Content = ({ isUserPage }) => {
   const [posts, setPosts] = useState([]);
@@ -37,7 +34,7 @@ const Content = ({ isUserPage }) => {
         postId={post.id}
         title={post.title}
         author={post.author}
-        timestamp={dayjs(post.created_at).fromNow()}
+        timestamp={getRelativeTime(post.created_at)}
         score={post.score}
         comments={parseInt(post.comments)}
       />
