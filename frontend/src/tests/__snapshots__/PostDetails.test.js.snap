@@ -1,0 +1,112 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`renders correctly 1`] = `
+<div
+  className="post-details-container"
+>
+  <div
+    className="votes-container"
+  >
+    <button
+      className="upvote-btn"
+      onClick={[Function]}
+    />
+    <span>
+      1
+    </span>
+    <button
+      className="downvote-btn"
+      onClick={[Function]}
+    />
+  </div>
+  <div
+    className="post-content-container"
+  >
+    <div
+      className="post-title"
+    >
+      <span>
+        test
+      </span>
+    </div>
+    <div
+      className="post-content"
+    >
+      <p>
+        test
+      </p>
+    </div>
+    <div
+      className="post-details"
+    >
+      <p>
+        1
+         comment
+         by
+         
+        test
+         
+        3 years ago
+      </p>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`renders correctly with delete button 1`] = `
+<div
+  className="post-details-container"
+>
+  <div
+    className="votes-container"
+  >
+    <button
+      className="upvote-btn"
+      onClick={[Function]}
+    />
+    <span>
+      1
+    </span>
+    <button
+      className="downvote-btn"
+      onClick={[Function]}
+    />
+  </div>
+  <div
+    className="post-content-container"
+  >
+    <div
+      className="post-title"
+    >
+      <span>
+        test
+      </span>
+    </div>
+    <div
+      className="post-content"
+    >
+      <p>
+        test
+      </p>
+    </div>
+    <div
+      className="post-details"
+    >
+      <p>
+        1
+         comment
+         by
+         
+        test
+         
+        3 years ago
+      </p>
+      <button
+        className="post-button danger"
+      >
+        Delete
+      </button>
+    </div>
+  </div>
+</div>
+`;

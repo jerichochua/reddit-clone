@@ -1,0 +1,54 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`renders correctly 1`] = `
+<main
+  className="post"
+>
+  <div
+    className="post-details-container"
+  >
+    <div
+      className="votes-container"
+    >
+      <button
+        className="upvote-btn"
+        onClick={[Function]}
+      />
+      <span />
+      <button
+        className="downvote-btn"
+        onClick={[Function]}
+      />
+    </div>
+    <div
+      className="post-content-container"
+    >
+      <div
+        className="post-title"
+      >
+        <span />
+      </div>
+      <div
+        className="post-content"
+      >
+        <p />
+      </div>
+      <div
+        className="post-details"
+      >
+        <p>
+           comment
+          s
+           by
+           
+           
+          a few seconds ago
+        </p>
+      </div>
+    </div>
+  </div>
+  <ul
+    className="comments-list"
+  />
+</main>
+`;

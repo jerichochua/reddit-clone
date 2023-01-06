@@ -1,0 +1,149 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`closes edit form when cancel button is clicked 1`] = `
+<li
+  className="comments-list-item"
+>
+  <div
+    className="comment-container"
+  >
+    <div
+      className="comment-header"
+    >
+      <span
+        className="comment-header-author"
+      >
+        test
+      </span>
+      <span
+        className="comment-header-timestamp"
+      >
+        timestamp
+      </span>
+      <button
+        className="post-button secondary"
+        onClick={[Function]}
+      >
+        Edit
+      </button>
+      <button
+        className="post-button danger"
+        value={1}
+      >
+        Delete
+      </button>
+    </div>
+    <div>
+      <p
+        className="comment-body"
+      >
+        test
+      </p>
+    </div>
+  </div>
+</li>
+`;
+
+exports[`opens edit form when edit button is clicked 1`] = `
+<li
+  className="comments-list-item"
+>
+  <div
+    className="comment-container"
+  >
+    <div
+      className="comment-header"
+    >
+      <span
+        className="comment-header-author"
+      >
+        test
+      </span>
+      <span
+        className="comment-header-timestamp"
+      >
+        timestamp
+      </span>
+      <button
+        className="post-button secondary"
+        onClick={[Function]}
+      >
+        Cancel
+      </button>
+      <button
+        className="post-button danger"
+        value={1}
+      >
+        Delete
+      </button>
+    </div>
+    <div>
+      <form>
+        <textarea
+          className="comment-edit-textarea"
+          defaultValue="test"
+          name="commentedit"
+          required={true}
+          rows="2"
+        />
+        <div
+          className="comment-edit-footer"
+        >
+          <button
+            className="form-btn"
+            name="commenteditbtn"
+            type="submit"
+            value={1}
+          >
+            Edit
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+</li>
+`;
+
+exports[`renders correctly 1`] = `
+<li
+  className="comments-list-item"
+>
+  <div
+    className="comment-container"
+  >
+    <div
+      className="comment-header"
+    >
+      <span
+        className="comment-header-author"
+      >
+        test
+      </span>
+      <span
+        className="comment-header-timestamp"
+      >
+        timestamp
+      </span>
+      <button
+        className="post-button secondary"
+        onClick={[Function]}
+      >
+        Edit
+      </button>
+      <button
+        className="post-button danger"
+        value={1}
+      >
+        Delete
+      </button>
+    </div>
+    <div>
+      <p
+        className="comment-body"
+      >
+        test
+      </p>
+    </div>
+  </div>
+</li>
+`;

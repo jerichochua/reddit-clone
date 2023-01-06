@@ -1,0 +1,54 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`renders correctly 1`] = `
+<div
+  className="form-container"
+  style={
+    Object {
+      "maxWidth": "600px",
+    }
+  }
+>
+  <form
+    className="form"
+    onSubmit={[Function]}
+  >
+    <div
+      className="form-field"
+    >
+      <label>
+        title
+      </label>
+      <input
+        name="title"
+        onChange={[Function]}
+        placeholder="title"
+        required={true}
+        type="text"
+        value=""
+      />
+    </div>
+    <div
+      className="form-field"
+    >
+      <label>
+        content
+      </label>
+      <textarea
+        name="content"
+        onChange={[Function]}
+        placeholder="content"
+        required={true}
+        rows="6"
+        value=""
+      />
+    </div>
+    <button
+      className="form-btn"
+      type="submit"
+    >
+      create post
+    </button>
+  </form>
+</div>
+`;
