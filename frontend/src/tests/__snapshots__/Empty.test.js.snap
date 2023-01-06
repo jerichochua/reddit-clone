@@ -1,0 +1,16 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`renders correctly with message 1`] = `
+<div
+  className="empty-content"
+>
+  <p>
+    No content found. Please try a different page.
+  </p>
+  <p
+    className="empty-message"
+  >
+    test message
+  </p>
+</div>
+`;
