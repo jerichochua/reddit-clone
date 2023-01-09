@@ -57,12 +57,25 @@ Use `http://localhost:3001/` to make API calls.
 
 ## Testing
 
+Testing for both frontend and backend use the `jest` package.
+
 ### Frontend
 
 ```bash
 cd frontend
 npm test
 ```
+
+### Backend
+
+```bash
+cd backend
+npm test
+```
+
+You can also run tests in watch mode, by running `npm run test:watch` instead.
+
+To gather coverage data, run `npm run coverage`.
 
 ## Environment variables
 

@@ -20,7 +20,9 @@ This folder contains the backend/server code.
 
 ## Dev dependencies
 
+- jest
 - nodemon
+- supertest
 
 ## Folder structure
 
