@@ -279,6 +279,9 @@
           "201": {
             "description": "Created"
           },
+          "400": {
+            "description": "Bad request"
+          },
           "403": {
             "description": "Forbidden - either the Authorization header is not present or the token is not valid."
           },
@@ -359,6 +362,9 @@
               }
             }
           },
+          "400": {
+            "description": "Bad request"
+          },
           "404": {
             "description": "Post not found"
           },
@@ -407,6 +413,9 @@
           "204": {
             "description": "Comment edited - no content"
           },
+          "400": {
+            "description": "Bad request"
+          },
           "403": {
             "description": "Forbidden - either the Authorization header is not present or the token is not valid."
           },
@@ -443,6 +452,9 @@
         "responses": {
           "204": {
             "description": "Deleted - no content"
+          },
+          "400": {
+            "description": "Bad request"
           },
           "403": {
             "description": "Forbidden - either the Authorization header is not present or the token is not valid."
@@ -549,6 +561,9 @@
               }
             }
           },
+          "400": {
+            "description": "Bad request"
+          },
           "404": {
             "description": "Post not found"
           },
@@ -573,6 +588,9 @@
         "responses": {
           "204": {
             "description": "Upvoted - no content"
+          },
+          "400": {
+            "description": "Bad request"
           },
           "403": {
             "description": "Forbidden - either the Authorization header is not present or the token is not valid."
@@ -607,6 +625,9 @@
           "204": {
             "description": "Downvoted - no content"
           },
+          "400": {
+            "description": "Bad request"
+          },
           "403": {
             "description": "Forbidden - either the Authorization header is not present or the token is not valid."
           },
@@ -639,6 +660,9 @@
         "responses": {
           "204": {
             "description": "Unvoted - no content"
+          },
+          "400": {
+            "description": "Bad request"
           },
           "403": {
             "description": "Forbidden - either the Authorization header is not present or the token is not valid."
