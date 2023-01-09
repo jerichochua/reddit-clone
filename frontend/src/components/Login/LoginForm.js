@@ -42,6 +42,11 @@ const LoginForm = () => {
         console.error(response);
       }
     } catch (error) {
+      const errorObj = JSON.parse(error.message);
+      if (errorObj.errors) {
+        setError(errorObj.errors[0].message);
+        return;
+      }
       setError(error.message);
       return;
     }

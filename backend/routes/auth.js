@@ -35,8 +35,12 @@ const validate = () => {
 router.post('/login', validate(), async (req, res) => {
   const errors = validationResult(req);
   if (!errors.isEmpty()) {
-    const firstError = errors.array()[0].msg;
-    return res.status(400).send(firstError);
+    const errorsList = errors.array().map((error) => {
+      return {
+        message: error.msg,
+      };
+    });
+    return res.status(422).json({ errors: errorsList });
   }
 
   try {
@@ -45,14 +49,18 @@ router.post('/login', validate(), async (req, res) => {
       username,
     ]);
     if (user.rows.length === 0) {
-      return res.status(400).send('Username or password is incorrect');
+      return res
+        .status(400)
+        .json({ errors: [{ message: 'Username or password is incorrect' }] });
     }
     const validPassword = await bcrypt.compare(password, user.rows[0].password);
     if (!validPassword) {
-      return res.status(400).send('Username or password is incorrect');
+      return res
+        .status(400)
+        .json({ errors: [{ message: 'Username or password is incorrect' }] });
     }
     const token = generate_token(user.rows[0].id, username);
-    return res.json({ token });
+    return res.status(200).json({ token });
   } catch (error) {
     res.status(500).send('Server error');
   }
@@ -61,8 +69,12 @@ router.post('/login', validate(), async (req, res) => {
 router.post('/register', validate(), async (req, res) => {
   const errors = validationResult(req);
   if (!errors.isEmpty()) {
-    const firstError = errors.array()[0].msg;
-    return res.status(400).send(firstError);
+    const errorsList = errors.array().map((error) => {
+      return {
+        message: error.msg,
+      };
+    });
+    return res.status(422).json({ errors: errorsList });
   }
 
   try {
@@ -71,7 +83,9 @@ router.post('/register', validate(), async (req, res) => {
       username,
     ]);
     if (user.rows.length > 0) {
-      return res.status(400).send('Username already exists');
+      return res
+        .status(400)
+        .json({ errors: [{ message: 'Username already exists' }] });
     }
     const salt = await bcrypt.genSalt(10);
     const hash = await bcrypt.hash(password, salt);
@@ -80,7 +94,7 @@ router.post('/register', validate(), async (req, res) => {
       [username, hash]
     );
     const token = generate_token(newUser.rows[0].id, username);
-    return res.json({ token });
+    return res.status(200).json({ token });
   } catch (error) {
     res.status(500).send('Server error');
   }

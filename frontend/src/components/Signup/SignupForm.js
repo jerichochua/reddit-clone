@@ -49,13 +49,18 @@ const SignupForm = () => {
       if (response.token) {
         localStorage.setItem('token', response.token);
         const { userId, username } = jwt_decode(response.token);
-        dispatch({ type: 'SET_USER', payload: { userId, username }});
+        dispatch({ type: 'SET_USER', payload: { userId, username } });
         dispatch({ type: 'SET_TOKEN', payload: response.token });
         window.location.href = '/';
       } else {
         console.error(response);
       }
     } catch (error) {
+      const errorObj = JSON.parse(error.message);
+      if (errorObj.errors) {
+        setError(errorObj.errors[0].message);
+        return;
+      }
       setError(error.message);
       return;
     }
