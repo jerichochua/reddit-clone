@@ -1,7 +1,5 @@
 # not-reddit, a reddit clone
 
-🚧 **Work in progress**
-
 Reddit clone built with the PERN stack (PostgreSQL, Express, React, Node.js).
 
 ## Features
@@ -10,7 +8,7 @@ Reddit clone built with the PERN stack (PostgreSQL, Express, React, Node.js).
 - Create, delete posts
 - Create, edit, delete comments
 - View own/other user's posts (profile page)
-- Backend API
+- Backend API (with Swagger documentation)
 
 ### Not yet implemented
 

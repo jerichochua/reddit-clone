@@ -16,6 +16,7 @@ This folder contains the backend/server code.
 - jsonwebtoken
 - morgan
 - pg
+- swagger-ui-express
 
 ## Dev dependencies
 
@@ -27,3 +28,9 @@ This folder contains the backend/server code.
 - `db`: contains the connection to PostgreSQL and database schemas
 - `middleware`: contains middleware functions
 - `routes`: contains code related to routing
+
+## API
+
+To view the API documentation, run `npm start` and open `http://localhost:3001/api-docs` in a web browser.
+
+The Swagger UI is auto-generated, based on `swagger.json`.

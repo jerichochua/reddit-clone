@@ -1,0 +1,887 @@
+{
+  "openapi": "3.0.3",
+  "info": {
+    "title": "reddit clone API",
+    "description": "This documentation describes the API for this reddit clone. [Repository](https://github.com/jerichochua/reddit-clone)",
+    "version": "1.0.0"
+  },
+  "servers": [
+    {
+      "url": "http://localhost:3001/api/v1"
+    }
+  ],
+  "tags": [
+    {
+      "name": "auth",
+      "description": "All authentication-related endpoints"
+    },
+    {
+      "name": "posts",
+      "description": "All post-related endpoints"
+    },
+    {
+      "name": "users",
+      "description": "All user-related endpoints"
+    },
+    {
+      "name": "votes",
+      "description": "All voting-related endpoints"
+    }
+  ],
+  "paths": {
+    "/login": {
+      "post": {
+        "tags": [
+          "auth"
+        ],
+        "summary": "Login a user",
+        "description": "Login with a username and password.",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Credentials"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": [
+                    "token"
+                  ],
+                  "properties": {
+                    "token": {
+                      "type": "string",
+                      "description": "JSON Web Token",
+                      "example": "eyJhb..."
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request"
+          },
+          "422": {
+            "description": "Validation failed"
+          },
+          "500": {
+            "description": "Internal server error"
+          }
+        }
+      }
+    },
+    "/register": {
+      "post": {
+        "tags": [
+          "auth"
+        ],
+        "summary": "Register a user",
+        "description": "Create a new user with a username and password.",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Credentials"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "token": {
+                      "type": "string",
+                      "description": "JSON Web Token",
+                      "example": "eyJhb..."
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request"
+          },
+          "422": {
+            "description": "Validation failed"
+          },
+          "500": {
+            "description": "Internal server error"
+          }
+        }
+      }
+    },
+    "/posts": {
+      "get": {
+        "tags": [
+          "posts"
+        ],
+        "summary": "Get all posts",
+        "description": "Get all posts.",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Post"
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal server error"
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "posts"
+        ],
+        "summary": "Create a post",
+        "description": "Create a new post.",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "required": [
+                  "title",
+                  "content"
+                ],
+                "type": "object",
+                "properties": {
+                  "title": {
+                    "type": "string",
+                    "example": "My post title"
+                  },
+                  "content": {
+                    "type": "string",
+                    "example": "My post content"
+                  }
+                }
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "201": {
+            "description": "Created",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/NewPost"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden - either the Authorization header is not present or the token is not valid."
+          },
+          "422": {
+            "description": "Validation failed"
+          },
+          "500": {
+            "description": "Internal server error"
+          }
+        },
+        "security": [
+          {
+            "BearerAuth": []
+          }
+        ]
+      }
+    },
+    "/posts/{postId}": {
+      "get": {
+        "tags": [
+          "posts"
+        ],
+        "summary": "Get a post",
+        "description": "Get a post by its ID.",
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/postId"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PostDetail"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Post not found"
+          },
+          "500": {
+            "description": "Internal server error"
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "posts"
+        ],
+        "summary": "Add a comment to a post",
+        "description": "Add a new comment to a post using its ID.",
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/postId"
+          }
+        ],
+        "requestBody": {
+          "description": "Comment to add to the post. The comment cannot be empty, and the maximum length is 2048 characters.",
+          "content": {
+            "application/json": {
+              "schema": {
+                "required": [
+                  "content"
+                ],
+                "type": "object",
+                "properties": {
+                  "content": {
+                    "type": "string",
+                    "example": "My comment"
+                  }
+                }
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "201": {
+            "description": "Created"
+          },
+          "403": {
+            "description": "Forbidden - either the Authorization header is not present or the token is not valid."
+          },
+          "404": {
+            "description": "Post not found"
+          },
+          "422": {
+            "description": "Validation failed"
+          },
+          "500": {
+            "description": "Internal server error"
+          }
+        },
+        "security": [
+          {
+            "BearerAuth": []
+          }
+        ]
+      },
+      "delete": {
+        "tags": [
+          "posts"
+        ],
+        "summary": "Delete a post",
+        "description": "Delete a post using its ID. If a post has comments, the post will not be deleted and a `400 Bad Request` will be returned.",
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/postId"
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "Deleted - no content"
+          },
+          "400": {
+            "description": "Bad request"
+          },
+          "403": {
+            "description": "Forbidden - either the Authorization header is not present or the token is not valid."
+          },
+          "404": {
+            "description": "Post not found"
+          },
+          "500": {
+            "description": "Internal server error"
+          }
+        },
+        "security": [
+          {
+            "BearerAuth": []
+          }
+        ]
+      }
+    },
+    "/posts/{postId}/comments": {
+      "get": {
+        "tags": [
+          "posts"
+        ],
+        "summary": "Get all comments for a post",
+        "description": "Get all comments for a post by its ID.",
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/postId"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Comment"
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Post not found"
+          },
+          "500": {
+            "description": "Internal server error"
+          }
+        }
+      }
+    },
+    "/posts/{postId}/comments/{commentId}": {
+      "put": {
+        "tags": [
+          "posts"
+        ],
+        "summary": "Edit a comment",
+        "description": "Edit a comment given a post ID and a comment ID.",
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/postId"
+          },
+          {
+            "$ref": "#/components/parameters/commentId"
+          }
+        ],
+        "requestBody": {
+          "description": "Comment to be edited. The comment cannot be empty, and the maximum length is 2048 characters.",
+          "content": {
+            "application/json": {
+              "schema": {
+                "required": [
+                  "content"
+                ],
+                "type": "object",
+                "properties": {
+                  "content": {
+                    "type": "string",
+                    "example": "My comment"
+                  }
+                }
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "204": {
+            "description": "Comment edited - no content"
+          },
+          "403": {
+            "description": "Forbidden - either the Authorization header is not present or the token is not valid."
+          },
+          "404": {
+            "description": "Post or comment not found"
+          },
+          "422": {
+            "description": "Validation failed"
+          },
+          "500": {
+            "description": "Internal server error"
+          }
+        },
+        "security": [
+          {
+            "BearerAuth": []
+          }
+        ]
+      },
+      "delete": {
+        "tags": [
+          "posts"
+        ],
+        "summary": "Delete a comment",
+        "description": "Delete a comment given a post ID and a comment ID.",
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/postId"
+          },
+          {
+            "$ref": "#/components/parameters/commentId"
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "Deleted - no content"
+          },
+          "403": {
+            "description": "Forbidden - either the Authorization header is not present or the token is not valid."
+          },
+          "404": {
+            "description": "Post or comment not found"
+          },
+          "500": {
+            "description": "Internal server error"
+          }
+        },
+        "security": [
+          {
+            "BearerAuth": []
+          }
+        ]
+      }
+    },
+    "/users/{username}": {
+      "get": {
+        "tags": [
+          "users"
+        ],
+        "summary": "Get a user's posts",
+        "description": "Get a user's posts.",
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/username"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Post"
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "User not found"
+          },
+          "500": {
+            "description": "Internal server error"
+          }
+        }
+      }
+    },
+    "/votes": {
+      "get": {
+        "tags": [
+          "votes"
+        ],
+        "summary": "Get all votes",
+        "description": "Get all votes.",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Vote"
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal server error"
+          }
+        }
+      }
+    },
+    "/posts/{postId}/votes": {
+      "get": {
+        "tags": [
+          "votes"
+        ],
+        "summary": "Get all votes for a post",
+        "description": "Get all votes for a post by its ID.",
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/postId"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Vote"
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Post not found"
+          },
+          "500": {
+            "description": "Internal server error"
+          }
+        }
+      }
+    },
+    "/posts/{postId}/upvote": {
+      "post": {
+        "tags": [
+          "votes"
+        ],
+        "summary": "Upvote a post",
+        "description": "Upvote a post by its ID.",
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/postId"
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "Upvoted - no content"
+          },
+          "403": {
+            "description": "Forbidden - either the Authorization header is not present or the token is not valid."
+          },
+          "404": {
+            "description": "Post not found"
+          },
+          "500": {
+            "description": "Internal server error"
+          }
+        },
+        "security": [
+          {
+            "BearerAuth": []
+          }
+        ]
+      }
+    },
+    "/posts/{postId}/downvote": {
+      "post": {
+        "tags": [
+          "votes"
+        ],
+        "summary": "Downvote a post",
+        "description": "Downvote a post by its ID.",
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/postId"
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "Downvoted - no content"
+          },
+          "403": {
+            "description": "Forbidden - either the Authorization header is not present or the token is not valid."
+          },
+          "404": {
+            "description": "Post not found"
+          },
+          "500": {
+            "description": "Internal server error"
+          }
+        },
+        "security": [
+          {
+            "BearerAuth": []
+          }
+        ]
+      }
+    },
+    "/posts/{postId}/unvote": {
+      "post": {
+        "tags": [
+          "votes"
+        ],
+        "summary": "Unvote a post",
+        "description": "Unvote a post by its ID.",
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/postId"
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "Unvoted - no content"
+          },
+          "403": {
+            "description": "Forbidden - either the Authorization header is not present or the token is not valid."
+          },
+          "404": {
+            "description": "Post not found"
+          },
+          "500": {
+            "description": "Internal server error"
+          }
+        },
+        "security": [
+          {
+            "BearerAuth": []
+          }
+        ]
+      }
+    }
+  },
+  "components": {
+    "parameters": {
+      "postId": {
+        "name": "postId",
+        "in": "path",
+        "description": "ID of the post",
+        "required": true,
+        "schema": {
+          "type": "integer"
+        }
+      },
+      "commentId": {
+        "name": "commentId",
+        "in": "path",
+        "description": "ID of the comment",
+        "required": true,
+        "schema": {
+          "type": "integer"
+        }
+      },
+      "username": {
+        "name": "username",
+        "in": "path",
+        "description": "Username",
+        "required": true,
+        "schema": {
+          "type": "string"
+        }
+      }
+    },
+    "schemas": {
+      "Post": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "example": 1
+          },
+          "title": {
+            "type": "string",
+            "example": "My post title"
+          },
+          "author": {
+            "type": "string",
+            "example": "John Doe"
+          },
+          "score": {
+            "type": "integer",
+            "example": 1
+          },
+          "created_at": {
+            "type": "string",
+            "format": "date-time",
+            "example": "2020-01-01T00:00:00.000Z"
+          },
+          "comments": {
+            "type": "integer",
+            "example": 1
+          }
+        }
+      },
+      "NewPost": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "example": 1
+          },
+          "title": {
+            "type": "string",
+            "example": "My post title"
+          },
+          "author_id": {
+            "type": "integer",
+            "example": 1
+          },
+          "created_at": {
+            "type": "string",
+            "format": "date-time",
+            "example": "2020-01-01T00:00:00.000Z"
+          },
+          "post_type": {
+            "type": "string",
+            "example": "text"
+          },
+          "content": {
+            "type": "string",
+            "example": "My post content"
+          },
+          "post_url": {
+            "type": "string",
+            "example": "https://www.example.com"
+          }
+        }
+      },
+      "PostDetail": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "example": 1
+          },
+          "title": {
+            "type": "string",
+            "example": "My post title"
+          },
+          "author": {
+            "type": "string",
+            "example": "John Doe"
+          },
+          "score": {
+            "type": "integer",
+            "example": 1
+          },
+          "created_at": {
+            "type": "string",
+            "format": "date-time",
+            "example": "2020-01-01T00:00:00.000Z"
+          },
+          "content": {
+            "type": "string",
+            "example": "My post content"
+          },
+          "comments": {
+            "type": "integer",
+            "example": 1
+          }
+        }
+      },
+      "Comment": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "description": "Comment ID",
+            "example": 1
+          },
+          "post_id": {
+            "type": "integer",
+            "description": "Post ID",
+            "example": 1
+          },
+          "author": {
+            "type": "string",
+            "description": "Comment author (username)",
+            "example": "JohnDoe"
+          },
+          "created_at": {
+            "type": "string",
+            "format": "date-time",
+            "description": "Comment creation date and time",
+            "example": "2020-01-01T00:00:00.000Z"
+          },
+          "content": {
+            "type": "string",
+            "description": "Comment content",
+            "example": "My comment"
+          }
+        }
+      },
+      "Vote": {
+        "type": "object",
+        "properties": {
+          "user_id": {
+            "type": "integer",
+            "description": "User ID",
+            "example": 1
+          },
+          "post_id": {
+            "type": "integer",
+            "description": "Post ID",
+            "example": 1
+          },
+          "vote": {
+            "type": "integer",
+            "description": "Vote value",
+            "example": 1
+          }
+        }
+      },
+      "Error": {
+        "type": "object",
+        "description": "Contains one or more errors when a request to the API fails",
+        "properties": {
+          "errors": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "message": {
+                  "type": "string",
+                  "description": "Human-readable error message for debugging",
+                  "example": "Error message"
+                }
+              }
+            }
+          }
+        }
+      },
+      "Credentials": {
+        "type": "object",
+        "required": [
+          "username",
+          "password"
+        ],
+        "properties": {
+          "username": {
+            "type": "string",
+            "description": "The minimum length is 3 characters and the maximum length is 32 characters.",
+            "example": "username"
+          },
+          "password": {
+            "type": "string",
+            "format": "password",
+            "description": "The minimum length is 8 characters and the maximum length is 64 characters.",
+            "example": "password"
+          }
+        }
+      }
+    },
+    "securitySchemes": {
+      "BearerAuth": {
+        "type": "http",
+        "description": "JWT Authorization header using the Bearer scheme. Example: \"Authorization: Bearer {token}\"",
+        "scheme": "bearer",
+        "bearerFormat": "JWT"
+      }
+    }
+  }
+}
