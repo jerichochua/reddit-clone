@@ -3,6 +3,9 @@
   "version": "0.1.0",
   "description": "reddit-clone-backend",
   "main": "index.js",
+  "jest": {
+    "verbose": true
+  },
   "scripts": {
     "start": "nodemon index.js",
     "test": "jest",
