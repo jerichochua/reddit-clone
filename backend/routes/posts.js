@@ -48,6 +48,10 @@ router.get('/', async (req, res) => {
   `;
   try {
     const result = await pool.query(query);
+    result.rows.forEach((post) => {
+      post.score = parseInt(post.score);
+      post.comments = parseInt(post.comments);
+    });
     res.status(200).send(result.rows);
   } catch (err) {
     res.status(500).send('Error retrieving posts');
@@ -57,8 +61,12 @@ router.get('/', async (req, res) => {
 router.post('/', verify_token, validate_post, async (req, res) => {
   const errors = validationResult(req);
   if (!errors.isEmpty()) {
-    const error = errors.array()[0];
-    return res.status(400).send(error.msg);
+    const errorsList = errors.array().map((error) => {
+      return {
+        message: error.msg,
+      };
+    });
+    return res.status(422).json({ errors: errorsList });
   }
   const author_id = req.user;
   const { title, content } = req.body;
@@ -75,6 +83,9 @@ router.post('/', verify_token, validate_post, async (req, res) => {
 
 router.get('/:id', async (req, res) => {
   const id = req.params.id;
+  if (isNaN(id)) {
+    return res.status(400).send('Invalid post ID');
+  }
   const query = `
     SELECT
       posts.id,
@@ -96,6 +107,10 @@ router.get('/:id', async (req, res) => {
     if (result.rows.length === 0) {
       return res.status(404).send('Post not found');
     }
+    result.rows.forEach((post) => {
+      post.score = parseInt(post.score);
+      post.comments = parseInt(post.comments);
+    });
     res.status(200).send(result.rows[0]);
   } catch (err) {
     res.status(500).send('Error retrieving post');
@@ -104,6 +119,9 @@ router.get('/:id', async (req, res) => {
 
 router.delete('/:id', verify_token, async (req, res) => {
   const id = req.params.id;
+  if (isNaN(id)) {
+    return res.status(400).send('Invalid post ID');
+  }
   const author_id = req.user;
   const query = `DELETE FROM posts WHERE id = $1 AND author_id = $2`;
   try {
@@ -118,17 +136,23 @@ router.delete('/:id', verify_token, async (req, res) => {
 });
 
 router.post('/:id', verify_token, validate_comment, async (req, res) => {
+  const post_id = req.params.id;
+  if (isNaN(post_id)) {
+    return res.status(400).send('Invalid post ID');
+  }
   const errors = validationResult(req);
   if (!errors.isEmpty()) {
-    const error = errors.array()[0];
-    return res.status(400).send(error.msg);
+    const errorsList = errors.array().map((error) => {
+      return {
+        message: error.msg,
+      };
+    });
+    return res.status(422).json({ errors: errorsList });
   }
   const author_id = req.user;
-  const post_id = req.params.id;
   const { content } = req.body;
   const query = `
-    INSERT INTO comments (post_id, author_id, content)
-    VALUES ($1, $2, $3)
+    INSERT INTO comments (post_id, author_id, content) VALUES ($1, $2, $3)
   `;
   try {
     const result = await pool.query(query, [post_id, author_id, content]);
@@ -143,6 +167,9 @@ router.post('/:id', verify_token, validate_comment, async (req, res) => {
 
 router.get('/:id/comments', async (req, res) => {
   const id = req.params.id;
+  if (isNaN(id)) {
+    return res.status(400).send('Invalid post ID');
+  }
   const query = `
     SELECT
       comments.id,
@@ -166,18 +193,24 @@ router.put(
   verify_token,
   validate_comment,
   async (req, res) => {
-    const errors = validationResult(req);
-    if (!errors.isEmpty()) {
-      const error = errors.array()[0];
-      return res.status(400).send(error.msg);
-    }
     const post_id = req.params.id;
     const comment_id = req.params.comment_id;
+    if (isNaN(post_id) || isNaN(comment_id)) {
+      return res.status(400).send('Invalid post/comment ID');
+    }
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+      const errorsList = errors.array().map((error) => {
+        return {
+          message: error.msg,
+        };
+      });
+      return res.status(422).json({ errors: errorsList });
+    }
     const author_id = req.user;
     const { content } = req.body;
     const query = `
-    UPDATE comments
-    SET content = $1
+    UPDATE comments SET content = $1
     WHERE id = $2 AND post_id = $3 AND author_id = $4
   `;
     try {
@@ -200,6 +233,9 @@ router.put(
 router.delete('/:id/comments/:comment_id', verify_token, async (req, res) => {
   const post_id = req.params.id;
   const comment_id = req.params.comment_id;
+  if (isNaN(post_id) || isNaN(comment_id)) {
+    return res.status(400).send('Invalid post/comment ID');
+  }
   const author_id = req.user;
   const query = `
     DELETE FROM comments
@@ -218,6 +254,9 @@ router.delete('/:id/comments/:comment_id', verify_token, async (req, res) => {
 
 router.get('/:id/votes', async (req, res) => {
   const id = req.params.id;
+  if (isNaN(id)) {
+    return res.status(400).send('Invalid post ID');
+  }
   const query = 'SELECT * FROM VOTES WHERE post_id = $1';
   try {
     const result = await pool.query(query, [id]);
@@ -232,6 +271,9 @@ router.get('/:id/votes', async (req, res) => {
 
 router.post('/:id/upvote', verify_token, async (req, res) => {
   const post_id = req.params.id;
+  if (isNaN(post_id)) {
+    return res.status(400).send('Invalid post ID');
+  }
   const user_id = req.user;
   const query = `
     INSERT INTO votes (post_id, user_id, vote)
@@ -252,6 +294,9 @@ router.post('/:id/upvote', verify_token, async (req, res) => {
 
 router.post('/:id/downvote', verify_token, async (req, res) => {
   const post_id = req.params.id;
+  if (isNaN(post_id)) {
+    return res.status(400).send('Invalid post ID');
+  }
   const user_id = req.user;
   const query = `
     INSERT INTO votes (post_id, user_id, vote)
@@ -272,6 +317,9 @@ router.post('/:id/downvote', verify_token, async (req, res) => {
 
 router.post('/:id/unvote', verify_token, async (req, res) => {
   const post_id = req.params.id;
+  if (isNaN(post_id)) {
+    return res.status(400).send('Invalid post ID');
+  }
   const user_id = req.user;
   const query = `
     DELETE FROM votes
