@@ -77,6 +77,8 @@ You can also run tests in watch mode, by running `npm run test:watch` instead.
 
 To gather coverage data, run `npm run coverage`.
 
+A test database needs to be created with the same schema as the normal database.
+
 ## Environment variables
 
 You will need to create a `.env` file in the `backend` folder (`backend/.env`) with the following variables:
@@ -85,3 +87,4 @@ You will need to create a `.env` file in the `backend` folder (`backend/.env`) w
 - `DB_HOST`
 - `DB_PORT`
 - `DB_DATABASE`
+- `DB_TEST_DATABASE`
