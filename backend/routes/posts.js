@@ -153,11 +153,15 @@ router.post('/:id', verify_token, validate_comment, async (req, res) => {
   const { content } = req.body;
   const query = `
     INSERT INTO comments (post_id, author_id, content) VALUES ($1, $2, $3)
+    RETURNING *
   `;
   try {
     const result = await pool.query(query, [post_id, author_id, content]);
     if (result.rowCount === 1) {
-      return res.status(201).json({ message: 'Comment created' });
+      return res.status(201).json({
+        id: result.rows[0].id,
+        message: 'Comment created',
+      });
     }
     return res.status(404).send('Post not found');
   } catch (err) {
