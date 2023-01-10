@@ -21,7 +21,8 @@ const CommentForm = ({ postId }) => {
         console.error(response);
       }
     } catch (error) {
-      setMessage(`error adding comment: ${error.message}`);
+      const errors = JSON.parse(error.message);
+      setMessage(`error adding comment: ${errors.errors[0].message}`);
     }
   };
 
