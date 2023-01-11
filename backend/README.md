@@ -4,6 +4,7 @@ This folder contains the backend/server code.
 
 ## Prerequisites
 
+- Node.js 18
 - PostgreSQL 15
 
 ## Dependencies
