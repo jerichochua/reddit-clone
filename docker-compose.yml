@@ -7,8 +7,12 @@ services:
       - "3001:3001"
     depends_on:
       - db
-  
+    volumes:
+      - ./backend:/usr/src/app
+      - /usr/src/app/node_modules
+
   db:
+    container_name: db
     image: postgres
     expose:
       - "5432"
