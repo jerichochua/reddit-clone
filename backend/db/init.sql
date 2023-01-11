@@ -1,0 +1,35 @@
+DROP TABLE IF EXISTS comments;
+DROP TABLE IF EXISTS votes;
+DROP TABLE IF EXISTS posts;
+DROP TABLE IF EXISTS users;
+
+CREATE TABLE users (
+  id SERIAL PRIMARY KEY,
+  username VARCHAR(255) UNIQUE NOT NULL,
+  password VARCHAR(255) NOT NULL
+);
+
+CREATE TABLE posts (
+  id SERIAL PRIMARY KEY,
+  title TEXT NOT NULL,
+  author_id INTEGER REFERENCES users(id),
+  created_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP,
+  post_type TEXT NOT NULL,
+  content TEXT NOT NULL,
+  post_url TEXT
+);
+
+CREATE TABLE comments (
+  id SERIAL PRIMARY KEY,
+  post_id INTEGER REFERENCES posts(id),
+  author_id INTEGER REFERENCES users(id),
+  created_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP,
+  content TEXT NOT NULL
+);
+
+CREATE TABLE votes (
+  user_id INTEGER REFERENCES users(id),
+  post_id INTEGER REFERENCES posts(id),
+  vote INTEGER NOT NULL CHECK (vote IN (-1, 1)),
+  PRIMARY KEY (user_id, post_id)
+);
