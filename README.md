@@ -88,3 +88,4 @@ You will need to create a `.env` file in the `backend` folder (`backend/.env`) w
 - `DB_PORT`
 - `DB_DATABASE`
 - `DB_TEST_DATABASE`
+- `JWT_SECRET`
