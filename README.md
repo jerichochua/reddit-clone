@@ -55,6 +55,8 @@ npm start
 
 Use `http://localhost:3001/` to make API calls.
 
+Alternatively, if you have Docker, run `docker compose up` to create a Docker container for the backend.
+
 ## Testing
 
 Testing for both frontend and backend use the `jest` package.
