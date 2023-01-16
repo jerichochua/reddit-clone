@@ -79,7 +79,7 @@ You can also run tests in watch mode, by running `npm run test:watch` instead.
 
 To gather coverage data, run `npm run coverage`.
 
-A test database needs to be created with the same schema as the normal database.
+A test database needs to be created with the same schema as the normal database. The test data can be found in `backend/db/test_data.sql`.
 
 ## Environment variables
 
