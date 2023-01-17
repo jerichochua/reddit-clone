@@ -3,6 +3,7 @@ import {
   validatePassword,
   validateTitle,
   validateContent,
+  validateUrl,
 } from '../util/validators';
 
 it('correctly validates valid username', () => {
@@ -83,4 +84,15 @@ it('correctly validates invalid content', () => {
   expect(validateContent('te')).toEqual([
     'Content must have at least 3 characters',
   ]);
+});
+
+it('correctly validates valid url', () => {
+  expect(validateUrl('https://www.test.com')).toEqual([]);
+  expect(validateUrl('http://www.test.com')).toEqual([]);
+  expect(validateUrl('https://a.test.com/test')).toEqual([]);
+});
+
+it('correctly validates invalid url', () => {
+  expect(validateUrl('test')).toEqual(['Invalid URL']);
+  expect(validateUrl('https://test')).toEqual(['Invalid URL']);
 });

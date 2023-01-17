@@ -49,3 +49,11 @@ export const validateContent = (content) => {
   }
   return errors;
 };
+
+export const validateUrl = (url) => {
+  const errors = [];
+  if (!/^(http|https):\/\/[a-zA-Z0-9-_.]+\.[a-zA-Z]{2,5}(\/.*)?$/.test(url)) {
+    errors.push('Invalid URL');
+  }
+  return errors;
+};
