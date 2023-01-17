@@ -38,7 +38,9 @@ router.get('/', async (req, res) => {
       users.username AS author,
       COALESCE(SUM(votes.vote), 0) AS score,
       posts.created_at,
-      COUNT(comments.id) AS comments
+      COUNT(comments.id) AS comments,
+      posts.post_type,
+      posts.post_url
     FROM posts
     INNER JOIN users ON posts.author_id = users.id
     LEFT JOIN comments ON posts.id = comments.post_id
