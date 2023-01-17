@@ -64,6 +64,21 @@
   box-shadow: 0 0 0 0.2rem rgba(24, 144, 255, 0.25);
 }
 
+.form-field select {
+  display: block;
+  width: 100%;
+  padding: 10px;
+  font-size: 14px;
+  border: 1px solid #ced4da;
+  border-radius: 4px;
+  transition: border-color 0.15s, box-shadow 0.15s;
+  background-color: white;
+}
+
+.form-field select:hover {
+  border-color: rgb(24, 144, 255);
+}
+
 .form-error {
   margin-bottom: 12px;
   color: red;
