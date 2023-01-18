@@ -46,6 +46,11 @@
   white-space: pre-line;
 }
 
+.post-content a {
+  color: rgb(0, 149, 246);
+  text-decoration: none;
+}
+
 .post-details {
   display: flex;
   font-size: 13px;

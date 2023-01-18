@@ -17,7 +17,12 @@ const PostDetails = (props) => {
           <span>{props.post.title}</span>
         </div>
         <div className='post-content'>
-          <p>{props.post.content}</p>
+          {props.post.post_type === 'text' && <p>{props.post.content}</p>}
+          {props.post.post_type === 'link' && (
+            <a href={props.post.post_url} target='_blank' rel='noreferrer'>
+              {props.post.post_url}
+            </a>
+          )}
         </div>
         <div className='post-details'>
           <p>
