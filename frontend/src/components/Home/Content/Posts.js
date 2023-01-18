@@ -2,15 +2,30 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import Votes from '../../Vote/Votes';
 
-const Posts = ({ postId, title, author, score, timestamp, comments }) => {
+const Posts = ({
+  postId,
+  title,
+  author,
+  score,
+  timestamp,
+  comments,
+  type,
+  url,
+}) => {
   return (
     <li>
       <div className='post-container'>
         <Votes score={score} />
         <div className='post-item'>
           <div className='title'>
-            <Link to={`/posts/${postId}`}>{title}</Link>
+            {type === 'text' && <Link to={`/posts/${postId}`}>{title}</Link>}
+            {type === 'link' && (
+              <a href={url} target='_blank' rel='noreferrer'>
+                {title}
+              </a>
+            )}
           </div>
+          {type === 'link' && <div className='post-url'>{url}</div>}
           <div className='caption'>
             <span>by </span>
             <Link to={`/user/${author}`}>{author}</Link>

@@ -37,6 +37,8 @@ const Content = ({ isUserPage }) => {
         timestamp={getRelativeTime(post.created_at)}
         score={post.score}
         comments={parseInt(post.comments)}
+        type={post.post_type}
+        url={post.post_url}
       />
     );
   });
