@@ -30,9 +30,7 @@ exports[`renders correctly 1`] = `
       </div>
       <div
         className="post-content"
-      >
-        <p />
-      </div>
+      />
       <div
         className="post-details"
       >

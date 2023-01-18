@@ -31,11 +31,7 @@ exports[`renders correctly 1`] = `
     </div>
     <div
       className="post-content"
-    >
-      <p>
-        test
-      </p>
-    </div>
+    />
     <div
       className="post-details"
     >
@@ -84,11 +80,7 @@ exports[`renders correctly with delete button 1`] = `
     </div>
     <div
       className="post-content"
-    >
-      <p>
-        test
-      </p>
-    </div>
+    />
     <div
       className="post-details"
     >
