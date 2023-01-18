@@ -35,6 +35,11 @@
   color: #1890ff;
 }
 
+.post-url {
+  font-size: 13px;
+  color: rgb(129, 142, 153);
+}
+
 .caption {
   font-size: 13px;
   color: rgb(129, 142, 153);
