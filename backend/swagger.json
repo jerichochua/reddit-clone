@@ -740,6 +740,14 @@
           "comments": {
             "type": "integer",
             "example": 1
+          },
+          "post_type": {
+            "type": "string",
+            "example": "link"
+          },
+          "post_url": {
+            "type": "string",
+            "example": "https://www.example.com"
           }
         }
       },
@@ -801,9 +809,17 @@
             "format": "date-time",
             "example": "2020-01-01T00:00:00.000Z"
           },
+          "post_type": {
+            "type": "string",
+            "example": "text"
+          },
           "content": {
             "type": "string",
             "example": "My post content"
+          },
+          "post_url": {
+            "type": "string",
+            "example": null
           },
           "comments": {
             "type": "integer",
