@@ -80,7 +80,7 @@ describe('posts endpoints', () => {
       request(app)
         .post('/api/v1/posts')
         .set('Authorization', `Bearer ${token}`)
-        .send({ title: 'Title' })
+        .send({ title: 'Title', type: 'text' })
         .expect((res) => {
           expect(res.body.errors).toBeDefined();
           expect(
@@ -113,7 +113,7 @@ describe('posts endpoints', () => {
       request(app)
         .post('/api/v1/posts')
         .set('Authorization', `Bearer ${token}`)
-        .send({ title: 'Title', content: 'a' })
+        .send({ title: 'Title', type: 'text', content: 'a' })
         .expect((res) => {
           expect(res.body.errors).toBeDefined();
           expect(
@@ -129,7 +129,7 @@ describe('posts endpoints', () => {
       request(app)
         .post('/api/v1/posts')
         .set('Authorization', `Bearer ${token}`)
-        .send({ title: 'New Test Post', content: 'Content' })
+        .send({ title: 'New Test Post', type: 'text', content: 'Content' })
         .expect((res) => {
           expect(res.body.title).toBe('New Test Post');
           expect(res.body.content).toBe('Content');
@@ -150,6 +150,7 @@ describe('posts endpoints', () => {
         .set('Authorization', `Bearer ${token}`)
         .send({
           title: 'New Test Post To Delete',
+          type: 'text',
           content: 'Content',
         });
 
@@ -179,7 +180,6 @@ describe('posts endpoints', () => {
           .set('Authorization', `Bearer ${token}`)
           .send({ content: '' })
           .expect((res) => {
-            console.log(res.body);
             expect(res.body.errors).toBeDefined();
             expect(
               res.body.errors.some(
