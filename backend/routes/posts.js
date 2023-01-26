@@ -75,6 +75,7 @@ router.get('/', async (req, res) => {
 
 router.post('/', verify_token, validate_post, async (req, res) => {
   const errors = validationResult(req);
+
   if (!errors.isEmpty()) {
     const errorsList = errors.array().map((error) => {
       return {
@@ -83,16 +84,30 @@ router.post('/', verify_token, validate_post, async (req, res) => {
     });
     return res.status(422).json({ errors: errorsList });
   }
+
   const author_id = req.user;
-  const { title, content } = req.body;
-  const query = `INSERT INTO posts (author_id, title, content, post_type)
-    VALUES ($1, $2, $3, 'text') RETURNING *
-  `;
-  try {
-    const result = await pool.query(query, [author_id, title, content]);
-    res.status(201).send(result.rows[0]);
-  } catch (err) {
-    res.status(500).send('Error creating post');
+
+  if (req.body.type === 'text') {
+    const { title, content } = req.body;
+    const query = `INSERT INTO posts (author_id, title, content, post_type)
+      VALUES ($1, $2, $3, 'text') RETURNING *`;
+    try {
+      const result = await pool.query(query, [author_id, title, content]);
+      res.status(201).send(result.rows[0]);
+    } catch (err) {
+      res.status(500).send('Error creating post');
+    }
+  } else {
+    const { title, url } = req.body;
+    const query = `INSERT INTO posts (author_id, title, post_url, post_type)
+      VALUES ($1, $2, $3, 'link') RETURNING *`;
+    try {
+      const result = await pool.query(query, [author_id, title, url]);
+      res.status(201).send(result.rows[0]);
+    } catch (err) {
+      console.log(err);
+      res.status(500).send('Error creating post');
+    }
   }
 });
 
