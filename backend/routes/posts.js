@@ -12,12 +12,25 @@ const validate_title = body('title')
   .isLength({ max: 128 })
   .withMessage('Title must have at most 128 characters');
 
-const validate_content = body('content')
-  .trim()
-  .exists()
-  .withMessage('Content is required')
-  .isLength({ min: 3 })
-  .withMessage('Content must have at least 3 characters');
+const validate_content = (req, res, next) => {
+  if (req.body.type === 'text') {
+    const content = body('content')
+      .trim()
+      .exists()
+      .withMessage('Content is required')
+      .isLength({ min: 3 })
+      .withMessage('Content must have at least 3 characters');
+    content(req, res, next);
+  } else {
+    const url = body('url')
+      .trim()
+      .exists()
+      .withMessage('URL is required')
+      .isURL()
+      .withMessage('URL must be valid');
+    url(req, res, next);
+  }
+};
 
 const validate_comment = body('content')
   .trim()
