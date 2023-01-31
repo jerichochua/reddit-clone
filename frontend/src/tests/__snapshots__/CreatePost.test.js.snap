@@ -17,6 +17,28 @@ exports[`renders correctly 1`] = `
       className="form-field"
     >
       <label>
+        type
+      </label>
+      <select
+        name="posttype"
+        onChange={[Function]}
+      >
+        <option
+          value="text"
+        >
+          text
+        </option>
+        <option
+          value="link"
+        >
+          link
+        </option>
+      </select>
+    </div>
+    <div
+      className="form-field"
+    >
+      <label>
         title
       </label>
       <input
