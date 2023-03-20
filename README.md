@@ -10,9 +10,10 @@ Reddit clone built with the PERN stack (PostgreSQL, Express, React, Node.js).
 - View own/other user's posts (profile page)
 - Backend API (with Swagger documentation)
 
-### Not yet implemented
+### Not yet implemented/to-do
 
 - Voting (endpoints created but not implemented on frontend yet)
+- Use MVC pattern
 
 ## Set up
 
